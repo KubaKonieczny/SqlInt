@@ -1,6 +1,8 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
+from query_exec import Operations
+op = Operations()
 reserved = {
     'SELECT': 'SELECT',
     'UPDATE': 'UPDATE',
@@ -198,18 +200,20 @@ def p_select(p):
                 | SELECT columns FROM tables
                 | SELECT expression
                 | SELECT expression FROM tables'''
-
+    c = [p[2]]
+    t = p[4]
+    op.query_exec("select", c, t, None, None, None)
 def p_columns(p):
     ''' columns : columns COMMA column
                 | column
                  '''
-
+    p[0] = p[1]
 def p_column(p):
     '''column :  '*'
                 | TEXT
                 | TEXT DOT TEXT
-
                 '''
+    p[0] = p[1]
 def p_aggregate(p):
     ''' aggregate : SUM LPAR TEXT RPAR
                     | AVG LPAR TEXT RPAR
@@ -220,12 +224,13 @@ def p_aggregate(p):
 def p_tabeles(p):
     '''tables : table
             | table COMMA tables'''
-
+    p[0] = p[1]
 def p_table(p):
     ''' table : TEXT
             | TEXT AS TEXT
-            '''
 
+            '''
+    p[0] = p[1]
 
 
 def p_conlist(p):
@@ -281,7 +286,7 @@ print(parser)
 #print(parser.token())
 while True:
     try:
-        s = input("hello")
+        s = input("Enter query \n")
     except EOFError:
         break
     if not s:
