@@ -276,15 +276,17 @@ def p_error(p):
 parser = yacc.yacc(debug=1)
 
 print(parser)
-parser.parse(data, debug=1)
+#parser.parse(data, debug=1)
 #for x in parser.token()
-print(parser.token())
+#print(parser.token())
 while True:
     try:
-        s = input(data)
+        s = input("hello")
     except EOFError:
         break
-    if not s: continue
-    result = parser.parse(s)
+    if not s:
+        continue
+    result = parser.parse(s, debug=1)
+
     print(result)
     
