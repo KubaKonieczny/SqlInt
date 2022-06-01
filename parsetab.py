@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "AND AS AVG BETWEEN BY COMMA COUNT DELETE DOT DOUBLE FROM IN INSERT INTEGER LPAR MAX MIN NOT OR ORDER PUNCTUATION RPAR SELECT SET SUM TEXT UPDATE VALUES WHEREquery : select\n            | update\n            | insert\n            | deleteupdate : UPDATE table SET column '=' expression\n                | UPDATE table SET column '=' expression WHERE conlist\n                insert : INSERT table VALUES LPAR expressions RPAR\n                | INSERT table LPAR columns RPAR VALUES LPAR expressions RPARdelete : DELETE FROM tables\n                | DELETE FROM tables WHERE conlist select : SELECT columns FROM tables WHERE conlist ORDER BY columns\n                | SELECT columns FROM tables WHERE conlist\n                | SELECT columns FROM tables ORDER BY columns\n                | SELECT columns FROM tables\n                | SELECT expression\n                | SELECT expression FROM tables columns : columns COMMA column\n                | column\n                 column :  '*'\n                | TEXT\n                | TEXT DOT TEXT\n                 aggregate : SUM LPAR TEXT RPAR\n                    | AVG LPAR TEXT RPAR\n                    | MAX LPAR TEXT RPAR\n                    | MIN LPAR TEXT RPAR\n                    | COUNT LPAR TEXT RPAR tables : table\n            | table COMMA tables table : TEXT\n            | TEXT AS TEXT\n\n             conlist : condition\n                | NOT condition\n                | condition AND condition\n                | condition OR condition\n                | TEXT BETWEEN number AND number\n                | TEXT IN LPAR select RPAR\n                  value :  number\n                | aggregate\n                |  PUNCTUATION TEXT PUNCTUATION   condition : column '>' value\n                  | column '<' value\n                  | column '=' value\n                  | column '>' column\n                  | column '<' column\n                  | column '=' column\n                    number : INTEGER\n                | DOUBLE  expressions : expression COMMA expressions\n                | expression expression : expression '+' value\n                   | expression '-' value\n                   | value "
+_lr_signature = "AND AS AVG BETWEEN BY COMMA COUNT DELETE DOT DOUBLE FROM IN INSERT INTEGER LPAR MAX MIN NOT OR ORDER PUNCTUATION RPAR SELECT SET SUM TEXT UPDATE VALUES WHEREquery : select\n            | update\n            | insert\n            | deleteupdate : UPDATE table SET column '=' expression\n                | UPDATE table SET column '=' expression WHERE conlist\n                insert : INSERT table VALUES LPAR expressions RPAR\n                | INSERT table LPAR columns RPAR VALUES LPAR expressions RPARdelete : DELETE FROM tables\n                | DELETE FROM tables WHERE conlist select : SELECT columns FROM tables WHERE conlist ORDER BY columns\n                | SELECT columns FROM tables WHERE conlist\n                | SELECT columns FROM tables ORDER BY columns\n                | SELECT columns FROM tables\n                | SELECT expression\n                | SELECT expression FROM tables columns : columns COMMA column\n                | column\n                 column :  '*'\n                | TEXT\n                | TEXT DOT TEXT\n                 aggregate : SUM LPAR TEXT RPAR\n                    | AVG LPAR TEXT RPAR\n                    | MAX LPAR TEXT RPAR\n                    | MIN LPAR TEXT RPAR\n                    | COUNT LPAR TEXT RPAR tables : table\n            | tables COMMA table table : TEXT\n            | TEXT AS TEXT\n\n             conlist : condition\n                | NOT condition\n                | condition AND condition\n                | condition OR condition\n                | TEXT BETWEEN number AND number\n                | TEXT IN LPAR select RPAR\n                  value :  number\n                | aggregate\n                |  PUNCTUATION TEXT PUNCTUATION   condition : column '>' value\n                  | column '<' value\n                  | column '=' value\n                  | column '>' column\n                  | column '<' column\n                  | column '=' column\n                    number : INTEGER\n                | DOUBLE  expressions : expressions COMMA expression\n                | expression expression : expression '+' value\n                   | expression '-' value\n                   | value "
     
-_lr_action_items = {'SELECT':([0,105,],[6,6,]),'UPDATE':([0,],[7,]),'INSERT':([0,],[8,]),'DELETE':([0,],[9,]),'$end':([1,2,3,4,5,11,12,13,14,15,16,17,19,20,27,46,47,48,49,50,51,52,53,54,61,68,69,70,71,72,77,78,82,83,85,86,91,98,102,103,106,107,108,109,110,111,113,117,118,119,120,],[0,-1,-2,-3,-4,-15,-18,-52,-19,-20,-37,-38,-46,-47,-29,-9,-27,-14,-17,-16,-50,-51,-21,-39,-30,-22,-23,-24,-25,-26,-10,-31,-28,-12,-5,-7,-32,-13,-33,-34,-43,-40,-44,-41,-45,-42,-6,-11,-8,-35,-36,]),'*':([6,31,42,45,64,66,79,84,89,90,94,95,96,99,112,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'TEXT':([6,7,8,18,29,30,31,32,35,37,38,39,40,41,42,43,45,64,65,66,79,84,89,90,94,95,96,99,112,],[15,27,27,36,27,27,15,27,53,55,56,57,58,59,15,61,15,80,27,80,15,15,15,15,15,15,15,80,15,]),'PUNCTUATION':([6,33,34,36,62,73,87,94,95,96,101,],[18,18,18,54,18,18,18,18,18,18,18,]),'INTEGER':([6,33,34,62,73,87,92,94,95,96,101,115,],[19,19,19,19,19,19,19,19,19,19,19,19,]),'DOUBLE':([6,33,34,62,73,87,92,94,95,96,101,115,],[20,20,20,20,20,20,20,20,20,20,20,20,]),'SUM':([6,33,34,62,73,87,94,95,96,101,],[21,21,21,21,21,21,21,21,21,21,]),'AVG':([6,33,34,62,73,87,94,95,96,101,],[22,22,22,22,22,22,22,22,22,22,]),'MAX':([6,33,34,62,73,87,94,95,96,101,],[23,23,23,23,23,23,23,23,23,23,]),'MIN':([6,33,34,62,73,87,94,95,96,101,],[24,24,24,24,24,24,24,24,24,24,]),'COUNT':([6,33,34,62,73,87,94,95,96,101,],[25,25,25,25,25,25,25,25,25,25,]),'FROM':([9,10,11,12,13,14,15,16,17,19,20,49,51,52,53,54,68,69,70,71,72,],[29,30,32,-18,-52,-19,-20,-37,-38,-46,-47,-17,-50,-51,-21,-39,-22,-23,-24,-25,-26,]),'COMMA':([10,12,13,14,15,16,17,19,20,27,47,49,51,52,53,54,61,63,68,69,70,71,72,75,98,117,],[31,-18,-52,-19,-20,-37,-38,-46,-47,-29,65,-17,-50,-51,-21,-39,-30,31,-22,-23,-24,-25,-26,87,31,31,]),'RPAR':([11,12,13,14,15,16,17,19,20,27,47,48,49,50,51,52,53,54,55,56,57,58,59,61,63,68,69,70,71,72,74,75,78,82,83,91,98,100,102,103,106,107,108,109,110,111,114,116,117,119,120,],[-15,-18,-52,-19,-20,-37,-38,-46,-47,-29,-27,-14,-17,-16,-50,-51,-21,-39,68,69,70,71,72,-30,76,-22,-23,-24,-25,-26,86,-49,-31,-28,-12,-32,-13,-48,-33,-34,-43,-40,-44,-41,-45,-42,118,120,-11,-35,-36,]),'+':([11,13,16,17,19,20,51,52,54,68,69,70,71,72,75,85,],[33,-52,-37,-38,-46,-47,-50,-51,-39,-22,-23,-24,-25,-26,33,33,]),'-':([11,13,16,17,19,20,51,52,54,68,69,70,71,72,75,85,],[34,-52,-37,-38,-46,-47,-50,-51,-39,-22,-23,-24,-25,-26,34,34,]),'WHERE':([13,16,17,19,20,27,46,47,48,51,52,54,61,68,69,70,71,72,82,85,],[-52,-37,-38,-46,-47,-29,64,-27,66,-50,-51,-39,-30,-22,-23,-24,-25,-26,-28,99,]),'=':([14,15,53,60,80,81,],[-19,-20,-21,73,-20,96,]),'>':([14,15,53,80,81,],[-19,-20,-21,-20,94,]),'<':([14,15,53,80,81,],[-19,-20,-21,-20,95,]),'AND':([14,15,16,17,19,20,53,54,68,69,70,71,72,78,104,106,107,108,109,110,111,],[-19,-20,-37,-38,-46,-47,-21,-39,-22,-23,-24,-25,-26,89,115,-43,-40,-44,-41,-45,-42,]),'OR':([14,15,16,17,19,20,53,54,68,69,70,71,72,78,106,107,108,109,110,111,],[-19,-20,-37,-38,-46,-47,-21,-39,-22,-23,-24,-25,-26,90,-43,-40,-44,-41,-45,-42,]),'ORDER':([14,15,16,17,19,20,27,47,48,53,54,61,68,69,70,71,72,78,82,83,91,102,103,106,107,108,109,110,111,119,120,],[-19,-20,-37,-38,-46,-47,-29,-27,67,-21,-39,-30,-22,-23,-24,-25,-26,-31,-28,97,-32,-33,-34,-43,-40,-44,-41,-45,-42,-35,-36,]),'DOT':([15,80,],[35,35,]),'LPAR':([21,22,23,24,25,27,28,44,61,88,93,],[37,38,39,40,41,-29,45,62,-30,101,105,]),'SET':([26,27,61,],[42,-29,-30,]),'VALUES':([27,28,61,76,],[-29,44,-30,88,]),'AS':([27,],[43,]),'NOT':([64,66,99,],[79,79,79,]),'BY':([67,97,],[84,112,]),'BETWEEN':([80,],[92,]),'IN':([80,],[93,]),}
+_lr_action_items = {'SELECT':([0,105,],[6,6,]),'UPDATE':([0,],[7,]),'INSERT':([0,],[8,]),'DELETE':([0,],[9,]),'$end':([1,2,3,4,5,11,12,13,14,15,16,17,19,20,27,46,47,48,49,50,51,52,53,54,61,68,69,70,71,72,77,78,82,83,85,86,91,98,102,103,106,107,108,109,110,111,113,117,118,119,120,],[0,-1,-2,-3,-4,-15,-18,-52,-19,-20,-37,-38,-46,-47,-29,-9,-27,-14,-17,-16,-50,-51,-21,-39,-30,-22,-23,-24,-25,-26,-10,-31,-28,-12,-5,-7,-32,-13,-33,-34,-43,-40,-44,-41,-45,-42,-6,-11,-8,-35,-36,]),'*':([6,31,42,45,64,66,79,84,89,90,94,95,96,99,112,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'TEXT':([6,7,8,18,29,30,31,32,35,37,38,39,40,41,42,43,45,64,65,66,79,84,89,90,94,95,96,99,112,],[15,27,27,36,27,27,15,27,53,55,56,57,58,59,15,61,15,80,27,80,15,15,15,15,15,15,15,80,15,]),'PUNCTUATION':([6,33,34,36,62,73,87,94,95,96,101,],[18,18,18,54,18,18,18,18,18,18,18,]),'INTEGER':([6,33,34,62,73,87,92,94,95,96,101,115,],[19,19,19,19,19,19,19,19,19,19,19,19,]),'DOUBLE':([6,33,34,62,73,87,92,94,95,96,101,115,],[20,20,20,20,20,20,20,20,20,20,20,20,]),'SUM':([6,33,34,62,73,87,94,95,96,101,],[21,21,21,21,21,21,21,21,21,21,]),'AVG':([6,33,34,62,73,87,94,95,96,101,],[22,22,22,22,22,22,22,22,22,22,]),'MAX':([6,33,34,62,73,87,94,95,96,101,],[23,23,23,23,23,23,23,23,23,23,]),'MIN':([6,33,34,62,73,87,94,95,96,101,],[24,24,24,24,24,24,24,24,24,24,]),'COUNT':([6,33,34,62,73,87,94,95,96,101,],[25,25,25,25,25,25,25,25,25,25,]),'FROM':([9,10,11,12,13,14,15,16,17,19,20,49,51,52,53,54,68,69,70,71,72,],[29,30,32,-18,-52,-19,-20,-37,-38,-46,-47,-17,-50,-51,-21,-39,-22,-23,-24,-25,-26,]),'COMMA':([10,12,13,14,15,16,17,19,20,27,46,47,48,49,50,51,52,53,54,61,63,68,69,70,71,72,74,75,82,98,100,114,117,],[31,-18,-52,-19,-20,-37,-38,-46,-47,-29,65,-27,65,-17,65,-50,-51,-21,-39,-30,31,-22,-23,-24,-25,-26,87,-49,-28,31,-48,87,31,]),'RPAR':([11,12,13,14,15,16,17,19,20,27,47,48,49,50,51,52,53,54,55,56,57,58,59,61,63,68,69,70,71,72,74,75,78,82,83,91,98,100,102,103,106,107,108,109,110,111,114,116,117,119,120,],[-15,-18,-52,-19,-20,-37,-38,-46,-47,-29,-27,-14,-17,-16,-50,-51,-21,-39,68,69,70,71,72,-30,76,-22,-23,-24,-25,-26,86,-49,-31,-28,-12,-32,-13,-48,-33,-34,-43,-40,-44,-41,-45,-42,118,120,-11,-35,-36,]),'+':([11,13,16,17,19,20,51,52,54,68,69,70,71,72,75,85,100,],[33,-52,-37,-38,-46,-47,-50,-51,-39,-22,-23,-24,-25,-26,33,33,33,]),'-':([11,13,16,17,19,20,51,52,54,68,69,70,71,72,75,85,100,],[34,-52,-37,-38,-46,-47,-50,-51,-39,-22,-23,-24,-25,-26,34,34,34,]),'WHERE':([13,16,17,19,20,27,46,47,48,51,52,54,61,68,69,70,71,72,82,85,],[-52,-37,-38,-46,-47,-29,64,-27,66,-50,-51,-39,-30,-22,-23,-24,-25,-26,-28,99,]),'=':([14,15,53,60,80,81,],[-19,-20,-21,73,-20,96,]),'>':([14,15,53,80,81,],[-19,-20,-21,-20,94,]),'<':([14,15,53,80,81,],[-19,-20,-21,-20,95,]),'AND':([14,15,16,17,19,20,53,54,68,69,70,71,72,78,104,106,107,108,109,110,111,],[-19,-20,-37,-38,-46,-47,-21,-39,-22,-23,-24,-25,-26,89,115,-43,-40,-44,-41,-45,-42,]),'OR':([14,15,16,17,19,20,53,54,68,69,70,71,72,78,106,107,108,109,110,111,],[-19,-20,-37,-38,-46,-47,-21,-39,-22,-23,-24,-25,-26,90,-43,-40,-44,-41,-45,-42,]),'ORDER':([14,15,16,17,19,20,27,47,48,53,54,61,68,69,70,71,72,78,82,83,91,102,103,106,107,108,109,110,111,119,120,],[-19,-20,-37,-38,-46,-47,-29,-27,67,-21,-39,-30,-22,-23,-24,-25,-26,-31,-28,97,-32,-33,-34,-43,-40,-44,-41,-45,-42,-35,-36,]),'DOT':([15,80,],[35,35,]),'LPAR':([21,22,23,24,25,27,28,44,61,88,93,],[37,38,39,40,41,-29,45,62,-30,101,105,]),'SET':([26,27,61,],[42,-29,-30,]),'VALUES':([27,28,61,76,],[-29,44,-30,88,]),'AS':([27,],[43,]),'NOT':([64,66,99,],[79,79,79,]),'BY':([67,97,],[84,112,]),'BETWEEN':([80,],[92,]),'IN':([80,],[93,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'query':([0,],[1,]),'select':([0,105,],[2,116,]),'update':([0,],[3,]),'insert':([0,],[4,]),'delete':([0,],[5,]),'columns':([6,45,84,112,],[10,63,98,117,]),'expression':([6,62,73,87,101,],[11,75,85,75,75,]),'column':([6,31,42,45,64,66,79,84,89,90,94,95,96,99,112,],[12,49,60,12,81,81,81,12,81,81,106,108,110,81,12,]),'value':([6,33,34,62,73,87,94,95,96,101,],[13,51,52,13,13,13,107,109,111,13,]),'number':([6,33,34,62,73,87,92,94,95,96,101,115,],[16,16,16,16,16,16,104,16,16,16,16,119,]),'aggregate':([6,33,34,62,73,87,94,95,96,101,],[17,17,17,17,17,17,17,17,17,17,]),'table':([7,8,29,30,32,65,],[26,28,47,47,47,47,]),'tables':([29,30,32,65,],[46,48,50,82,]),'expressions':([62,87,101,],[74,100,114,]),'conlist':([64,66,99,],[77,83,113,]),'condition':([64,66,79,89,90,99,],[78,78,91,102,103,78,]),}
+_lr_goto_items = {'query':([0,],[1,]),'select':([0,105,],[2,116,]),'update':([0,],[3,]),'insert':([0,],[4,]),'delete':([0,],[5,]),'columns':([6,45,84,112,],[10,63,98,117,]),'expression':([6,62,73,87,101,],[11,75,85,100,75,]),'column':([6,31,42,45,64,66,79,84,89,90,94,95,96,99,112,],[12,49,60,12,81,81,81,12,81,81,106,108,110,81,12,]),'value':([6,33,34,62,73,87,94,95,96,101,],[13,51,52,13,13,13,107,109,111,13,]),'number':([6,33,34,62,73,87,92,94,95,96,101,115,],[16,16,16,16,16,16,104,16,16,16,16,119,]),'aggregate':([6,33,34,62,73,87,94,95,96,101,],[17,17,17,17,17,17,17,17,17,17,]),'table':([7,8,29,30,32,65,],[26,28,47,47,47,82,]),'tables':([29,30,32,],[46,48,50,]),'expressions':([62,101,],[74,114,]),'conlist':([64,66,99,],[77,83,113,]),'condition':([64,66,79,89,90,99,],[78,78,91,102,103,78,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -43,40 +43,40 @@ _lr_productions = [
   ('select -> SELECT columns FROM tables','select',4,'p_select','main.py',200),
   ('select -> SELECT expression','select',2,'p_select','main.py',201),
   ('select -> SELECT expression FROM tables','select',4,'p_select','main.py',202),
-  ('columns -> columns COMMA column','columns',3,'p_columns','main.py',206),
-  ('columns -> column','columns',1,'p_columns','main.py',207),
-  ('column -> *','column',1,'p_column','main.py',211),
-  ('column -> TEXT','column',1,'p_column','main.py',212),
-  ('column -> TEXT DOT TEXT','column',3,'p_column','main.py',213),
-  ('aggregate -> SUM LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',217),
-  ('aggregate -> AVG LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',218),
-  ('aggregate -> MAX LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',219),
-  ('aggregate -> MIN LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',220),
-  ('aggregate -> COUNT LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',221),
-  ('tables -> table','tables',1,'p_tabeles','main.py',224),
-  ('tables -> table COMMA tables','tables',3,'p_tabeles','main.py',225),
-  ('table -> TEXT','table',1,'p_table','main.py',228),
-  ('table -> TEXT AS TEXT','table',3,'p_table','main.py',229),
-  ('conlist -> condition','conlist',1,'p_conlist','main.py',236),
-  ('conlist -> NOT condition','conlist',2,'p_conlist','main.py',237),
-  ('conlist -> condition AND condition','conlist',3,'p_conlist','main.py',238),
-  ('conlist -> condition OR condition','conlist',3,'p_conlist','main.py',239),
-  ('conlist -> TEXT BETWEEN number AND number','conlist',5,'p_conlist','main.py',240),
-  ('conlist -> TEXT IN LPAR select RPAR','conlist',5,'p_conlist','main.py',241),
-  ('value -> number','value',1,'p_value','main.py',246),
-  ('value -> aggregate','value',1,'p_value','main.py',247),
-  ('value -> PUNCTUATION TEXT PUNCTUATION','value',3,'p_value','main.py',248),
-  ('condition -> column > value','condition',3,'p_condition','main.py',252),
-  ('condition -> column < value','condition',3,'p_condition','main.py',253),
-  ('condition -> column = value','condition',3,'p_condition','main.py',254),
-  ('condition -> column > column','condition',3,'p_condition','main.py',255),
-  ('condition -> column < column','condition',3,'p_condition','main.py',256),
-  ('condition -> column = column','condition',3,'p_condition','main.py',257),
-  ('number -> INTEGER','number',1,'p_number','main.py',261),
-  ('number -> DOUBLE','number',1,'p_number','main.py',262),
-  ('expressions -> expression COMMA expressions','expressions',3,'p_expressions','main.py',265),
-  ('expressions -> expression','expressions',1,'p_expressions','main.py',266),
-  ('expression -> expression + value','expression',3,'p_expression','main.py',268),
-  ('expression -> expression - value','expression',3,'p_expression','main.py',269),
-  ('expression -> value','expression',1,'p_expression','main.py',270),
+  ('columns -> columns COMMA column','columns',3,'p_columns','main.py',207),
+  ('columns -> column','columns',1,'p_columns','main.py',208),
+  ('column -> *','column',1,'p_column','main.py',220),
+  ('column -> TEXT','column',1,'p_column','main.py',221),
+  ('column -> TEXT DOT TEXT','column',3,'p_column','main.py',222),
+  ('aggregate -> SUM LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',230),
+  ('aggregate -> AVG LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',231),
+  ('aggregate -> MAX LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',232),
+  ('aggregate -> MIN LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',233),
+  ('aggregate -> COUNT LPAR TEXT RPAR','aggregate',4,'p_aggregate','main.py',234),
+  ('tables -> table','tables',1,'p_tabeles','main.py',237),
+  ('tables -> tables COMMA table','tables',3,'p_tabeles','main.py',238),
+  ('table -> TEXT','table',1,'p_table','main.py',250),
+  ('table -> TEXT AS TEXT','table',3,'p_table','main.py',251),
+  ('conlist -> condition','conlist',1,'p_conlist','main.py',258),
+  ('conlist -> NOT condition','conlist',2,'p_conlist','main.py',259),
+  ('conlist -> condition AND condition','conlist',3,'p_conlist','main.py',260),
+  ('conlist -> condition OR condition','conlist',3,'p_conlist','main.py',261),
+  ('conlist -> TEXT BETWEEN number AND number','conlist',5,'p_conlist','main.py',262),
+  ('conlist -> TEXT IN LPAR select RPAR','conlist',5,'p_conlist','main.py',263),
+  ('value -> number','value',1,'p_value','main.py',268),
+  ('value -> aggregate','value',1,'p_value','main.py',269),
+  ('value -> PUNCTUATION TEXT PUNCTUATION','value',3,'p_value','main.py',270),
+  ('condition -> column > value','condition',3,'p_condition','main.py',275),
+  ('condition -> column < value','condition',3,'p_condition','main.py',276),
+  ('condition -> column = value','condition',3,'p_condition','main.py',277),
+  ('condition -> column > column','condition',3,'p_condition','main.py',278),
+  ('condition -> column < column','condition',3,'p_condition','main.py',279),
+  ('condition -> column = column','condition',3,'p_condition','main.py',280),
+  ('number -> INTEGER','number',1,'p_number','main.py',285),
+  ('number -> DOUBLE','number',1,'p_number','main.py',286),
+  ('expressions -> expressions COMMA expression','expressions',3,'p_expressions','main.py',290),
+  ('expressions -> expression','expressions',1,'p_expressions','main.py',291),
+  ('expression -> expression + value','expression',3,'p_expression','main.py',301),
+  ('expression -> expression - value','expression',3,'p_expression','main.py',302),
+  ('expression -> value','expression',1,'p_expression','main.py',303),
 ]

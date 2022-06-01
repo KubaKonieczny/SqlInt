@@ -200,20 +200,32 @@ def p_select(p):
                 | SELECT columns FROM tables
                 | SELECT expression
                 | SELECT expression FROM tables'''
-    c = [p[2]]
+    c = p[2]
     t = p[4]
     op.query_exec("select", c, t, None, None, None)
 def p_columns(p):
     ''' columns : columns COMMA column
                 | column
                  '''
-    p[0] = p[1]
+    col = []
+    if len(p) == 2:
+        col.append(p[1])
+    elif len(p) == 4:
+        for i in p[1]:
+            col.append(i)
+        col.append(p[3])
+    p[0] = col
+    
 def p_column(p):
     '''column :  '*'
                 | TEXT
                 | TEXT DOT TEXT
                 '''
-    p[0] = p[1]
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = p[3]
+        
 def p_aggregate(p):
     ''' aggregate : SUM LPAR TEXT RPAR
                     | AVG LPAR TEXT RPAR
@@ -223,8 +235,17 @@ def p_aggregate(p):
 
 def p_tabeles(p):
     '''tables : table
-            | table COMMA tables'''
-    p[0] = p[1]
+            | tables COMMA table'''
+
+    col = []
+    if len(p) == 2:
+        col.append(p[1])
+    elif len(p) == 4:
+        for i in p[1]:
+            col.append(i)
+        col.append(p[3])
+    p[0] = col
+
 def p_table(p):
     ''' table : TEXT
             | TEXT AS TEXT
@@ -248,6 +269,7 @@ def p_value(p):
                 | aggregate
                 |  PUNCTUATION TEXT PUNCTUATION  '''
 
+    p[0] = p[1]
 
 def p_condition(p):
     ''' condition : column '>' value
@@ -258,21 +280,36 @@ def p_condition(p):
                   | column '=' column
                    '''
 
+
 def p_number(p):
     ''' number : INTEGER
                 | DOUBLE '''
+    p[0] = p[1]
 
 def  p_expressions(p):
-    ''' expressions : expression COMMA expressions
+    ''' expressions : expressions COMMA expression
                 | expression'''
+    expr = []
+    if len(p) == 2:
+        expr.append(p[1])
+    elif len(p) == 4:
+        for i in p[1]:
+            expr.append(i)
+        expr.append(p[3])
+    p[0] = expr
 def p_expression(p):
     ''' expression : expression '+' value
                    | expression '-' value
                    | value '''
-    if p[2] == '+':
-        p[0] = p[1] + p[3]
-    elif p[2] == '-':
-        p[0] = p[1] - p[3]
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        if p[2] == '+':
+            p[0] = p[1] + p[3]
+        elif p[2] == '-':
+            p[0] = p[1] - p[3]
+
+
 
 def p_error(p):
     print("Syntax error in input!")

@@ -30,7 +30,7 @@ Rule 24    aggregate -> MAX LPAR TEXT RPAR
 Rule 25    aggregate -> MIN LPAR TEXT RPAR
 Rule 26    aggregate -> COUNT LPAR TEXT RPAR
 Rule 27    tables -> table
-Rule 28    tables -> table COMMA tables
+Rule 28    tables -> tables COMMA table
 Rule 29    table -> TEXT
 Rule 30    table -> TEXT AS TEXT
 Rule 31    conlist -> condition
@@ -50,7 +50,7 @@ Rule 44    condition -> column < column
 Rule 45    condition -> column = column
 Rule 46    number -> INTEGER
 Rule 47    number -> DOUBLE
-Rule 48    expressions -> expression COMMA expressions
+Rule 48    expressions -> expressions COMMA expression
 Rule 49    expressions -> expression
 Rule 50    expression -> expression + value
 Rule 51    expression -> expression - value
@@ -461,8 +461,8 @@ state 27
     SET             reduce using rule 29 (table -> TEXT .)
     VALUES          reduce using rule 29 (table -> TEXT .)
     LPAR            reduce using rule 29 (table -> TEXT .)
-    COMMA           reduce using rule 29 (table -> TEXT .)
     WHERE           reduce using rule 29 (table -> TEXT .)
+    COMMA           reduce using rule 29 (table -> TEXT .)
     $end            reduce using rule 29 (table -> TEXT .)
     ORDER           reduce using rule 29 (table -> TEXT .)
     RPAR            reduce using rule 29 (table -> TEXT .)
@@ -483,7 +483,7 @@ state 29
     (9) delete -> DELETE FROM . tables
     (10) delete -> DELETE FROM . tables WHERE conlist
     (27) tables -> . table
-    (28) tables -> . table COMMA tables
+    (28) tables -> . tables COMMA table
     (29) table -> . TEXT
     (30) table -> . TEXT AS TEXT
 
@@ -499,7 +499,7 @@ state 30
     (13) select -> SELECT columns FROM . tables ORDER BY columns
     (14) select -> SELECT columns FROM . tables
     (27) tables -> . table
-    (28) tables -> . table COMMA tables
+    (28) tables -> . tables COMMA table
     (29) table -> . TEXT
     (30) table -> . TEXT AS TEXT
 
@@ -524,7 +524,7 @@ state 32
 
     (16) select -> SELECT expression FROM . tables
     (27) tables -> . table
-    (28) tables -> . table COMMA tables
+    (28) tables -> . tables COMMA table
     (29) table -> . TEXT
     (30) table -> . TEXT AS TEXT
 
@@ -682,21 +682,22 @@ state 46
 
     (9) delete -> DELETE FROM tables .
     (10) delete -> DELETE FROM tables . WHERE conlist
+    (28) tables -> tables . COMMA table
 
     $end            reduce using rule 9 (delete -> DELETE FROM tables .)
     WHERE           shift and go to state 64
+    COMMA           shift and go to state 65
 
 
 state 47
 
     (27) tables -> table .
-    (28) tables -> table . COMMA tables
 
     WHERE           reduce using rule 27 (tables -> table .)
+    COMMA           reduce using rule 27 (tables -> table .)
     $end            reduce using rule 27 (tables -> table .)
     ORDER           reduce using rule 27 (tables -> table .)
     RPAR            reduce using rule 27 (tables -> table .)
-    COMMA           shift and go to state 65
 
 
 state 48
@@ -705,11 +706,13 @@ state 48
     (12) select -> SELECT columns FROM tables . WHERE conlist
     (13) select -> SELECT columns FROM tables . ORDER BY columns
     (14) select -> SELECT columns FROM tables .
+    (28) tables -> tables . COMMA table
 
     WHERE           shift and go to state 66
     ORDER           shift and go to state 67
     $end            reduce using rule 14 (select -> SELECT columns FROM tables .)
     RPAR            reduce using rule 14 (select -> SELECT columns FROM tables .)
+    COMMA           shift and go to state 65
 
 
 state 49
@@ -725,9 +728,11 @@ state 49
 state 50
 
     (16) select -> SELECT expression FROM tables .
+    (28) tables -> tables . COMMA table
 
     $end            reduce using rule 16 (select -> SELECT expression FROM tables .)
     RPAR            reduce using rule 16 (select -> SELECT expression FROM tables .)
+    COMMA           shift and go to state 65
 
 
 state 51
@@ -838,8 +843,8 @@ state 61
     SET             reduce using rule 30 (table -> TEXT AS TEXT .)
     VALUES          reduce using rule 30 (table -> TEXT AS TEXT .)
     LPAR            reduce using rule 30 (table -> TEXT AS TEXT .)
-    COMMA           reduce using rule 30 (table -> TEXT AS TEXT .)
     WHERE           reduce using rule 30 (table -> TEXT AS TEXT .)
+    COMMA           reduce using rule 30 (table -> TEXT AS TEXT .)
     $end            reduce using rule 30 (table -> TEXT AS TEXT .)
     ORDER           reduce using rule 30 (table -> TEXT AS TEXT .)
     RPAR            reduce using rule 30 (table -> TEXT AS TEXT .)
@@ -848,7 +853,7 @@ state 61
 state 62
 
     (7) insert -> INSERT table VALUES LPAR . expressions RPAR
-    (48) expressions -> . expression COMMA expressions
+    (48) expressions -> . expressions COMMA expression
     (49) expressions -> . expression
     (50) expression -> . expression + value
     (51) expression -> . expression - value
@@ -917,16 +922,13 @@ state 64
 
 state 65
 
-    (28) tables -> table COMMA . tables
-    (27) tables -> . table
-    (28) tables -> . table COMMA tables
+    (28) tables -> tables COMMA . table
     (29) table -> . TEXT
     (30) table -> . TEXT AS TEXT
 
     TEXT            shift and go to state 27
 
-    table                          shift and go to state 47
-    tables                         shift and go to state 82
+    table                          shift and go to state 82
 
 state 66
 
@@ -1078,19 +1080,20 @@ state 73
 state 74
 
     (7) insert -> INSERT table VALUES LPAR expressions . RPAR
+    (48) expressions -> expressions . COMMA expression
 
     RPAR            shift and go to state 86
+    COMMA           shift and go to state 87
 
 
 state 75
 
-    (48) expressions -> expression . COMMA expressions
     (49) expressions -> expression .
     (50) expression -> expression . + value
     (51) expression -> expression . - value
 
-    COMMA           shift and go to state 87
     RPAR            reduce using rule 49 (expressions -> expression .)
+    COMMA           reduce using rule 49 (expressions -> expression .)
     +               shift and go to state 33
     -               shift and go to state 34
 
@@ -1172,12 +1175,13 @@ state 81
 
 state 82
 
-    (28) tables -> table COMMA tables .
+    (28) tables -> tables COMMA table .
 
-    WHERE           reduce using rule 28 (tables -> table COMMA tables .)
-    $end            reduce using rule 28 (tables -> table COMMA tables .)
-    ORDER           reduce using rule 28 (tables -> table COMMA tables .)
-    RPAR            reduce using rule 28 (tables -> table COMMA tables .)
+    WHERE           reduce using rule 28 (tables -> tables COMMA table .)
+    COMMA           reduce using rule 28 (tables -> tables COMMA table .)
+    $end            reduce using rule 28 (tables -> tables COMMA table .)
+    ORDER           reduce using rule 28 (tables -> tables COMMA table .)
+    RPAR            reduce using rule 28 (tables -> tables COMMA table .)
 
 
 state 83
@@ -1227,9 +1231,7 @@ state 86
 
 state 87
 
-    (48) expressions -> expression COMMA . expressions
-    (48) expressions -> . expression COMMA expressions
-    (49) expressions -> . expression
+    (48) expressions -> expressions COMMA . expression
     (50) expression -> . expression + value
     (51) expression -> . expression - value
     (52) expression -> . value
@@ -1253,8 +1255,7 @@ state 87
     MIN             shift and go to state 24
     COUNT           shift and go to state 25
 
-    expression                     shift and go to state 75
-    expressions                    shift and go to state 100
+    expression                     shift and go to state 100
     value                          shift and go to state 13
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
@@ -1479,15 +1480,20 @@ state 99
 
 state 100
 
-    (48) expressions -> expression COMMA expressions .
+    (48) expressions -> expressions COMMA expression .
+    (50) expression -> expression . + value
+    (51) expression -> expression . - value
 
-    RPAR            reduce using rule 48 (expressions -> expression COMMA expressions .)
+    RPAR            reduce using rule 48 (expressions -> expressions COMMA expression .)
+    COMMA           reduce using rule 48 (expressions -> expressions COMMA expression .)
+    +               shift and go to state 33
+    -               shift and go to state 34
 
 
 state 101
 
     (8) insert -> INSERT table LPAR columns RPAR VALUES LPAR . expressions RPAR
-    (48) expressions -> . expression COMMA expressions
+    (48) expressions -> . expressions COMMA expression
     (49) expressions -> . expression
     (50) expression -> . expression + value
     (51) expression -> . expression - value
@@ -1648,8 +1654,10 @@ state 113
 state 114
 
     (8) insert -> INSERT table LPAR columns RPAR VALUES LPAR expressions . RPAR
+    (48) expressions -> expressions . COMMA expression
 
     RPAR            shift and go to state 118
+    COMMA           shift and go to state 87
 
 
 state 115

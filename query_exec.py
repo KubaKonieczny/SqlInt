@@ -10,7 +10,9 @@ class Operations(object):
     def query_exec(self, name, columns, tables, expressions, order, where):
 
         if name == "select" and expressions is None:
-            df = pd.read_csv("Tables/"+tables)
+            df = pd.read_csv("Tables/"+tables[0])
+            print(columns)
+            print(df.columns)
             df = df[columns]
 
             #df.sort_values(order, in_place=True)
