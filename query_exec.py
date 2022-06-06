@@ -14,22 +14,30 @@ class Operations(object):
                 print(expressions)
             elif columns == ['*']:
                 df = pd.read_csv("Tables/" + tables[0])
-                print(df.head())
-            elif expressions is None and where is None and order is None:
+                #print(df.head())
+            else:
                 df = pd.read_csv("Tables/" + tables[0])
-                print(columns)
-                print(df.columns)
+                # print(columns)
+                # print(df.columns)
                 df = df[columns]
 
                 # df.sort_values(order, in_place=True)
-                print(df.head())
-            elif where is not None:
-                df = pd.read_csv("Tables/" + tables[0])
-                # print(where[0])
-                # print(where[2][1])
-                df = df[df[where[0]] == where[2][1]]
-                print(df)
+                #print(df.head())
+            if where is not None:
+                # df = pd.read_csv("Tables/" + tables[0])
+                #print(where[2])
+                print(where[2])
+                if where[1] == '=':
+                    df = df[df[where[0]] == where[2][0]]
+                elif where[1] == '>':
+                    df = df[df[where[0]] > where[2][0]]
+                elif where[1] == '<':
+                    df = df[df[where[0]] < where[2][0]]
 
+
+
+
+            print(df)
 
         elif name == 'update':
             df = pd.read_csv("Tables/" + tables)
@@ -40,6 +48,7 @@ class Operations(object):
         elif name == 'delete':
             df = pd.read_csv("Tables/" + tables)
             df.drop()
+
 
 
 

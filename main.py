@@ -247,7 +247,7 @@ def p_select(p):
     e = None
     w = None
 
-    if len(p) == 9 or len(p) == 7:
+    if len(p) == 10 or len(p) == 7:
         w = p[6]
 
     if len(p) == 9:
@@ -328,19 +328,30 @@ def p_conlist(p):
                  '''
     p[0] = p[1]
 
+def p_texts(p):
+    '''texts : TEXT
+                | texts TEXT'''
+
+    text = []
+    if len(p) == 2:
+        text.append(p[1])
+    elif len(p) == 3:
+        for i in p[1]:
+            text.append(i)
+        text.append(p[2])
+    p[0] = text
 
 def p_value(p):
     ''' value :  number
                 | aggregate
-                | PUNCTUATION TEXT PUNCTUATION  '''
+                | PUNCTUATION texts PUNCTUATION  '''
     if len(p) == 4:
         values = []
-        for val in p[1:]:
+        for val in p[2]:
             values.append(val)
-
-        p[0] = values
+        p[0] = [' '.join(values)]
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
 
 
 def p_condition(p):
@@ -358,10 +369,17 @@ def p_condition(p):
     p[0] = cond
 
 def p_number(p):
-    ''' number : INTEGER
-                | DOUBLE '''
+    ''' number : int
+                | double '''
     p[0] = p[1]
+def p_int(p):
+    '''int : INTEGER'''
 
+    p[0] = int(p[1])
+
+def p_double(p):
+    '''double : DOUBLE'''
+    p[0] = float(p[1])
 
 def p_expressions(p):
     ''' expressions : expressions COMMA expression
