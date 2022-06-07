@@ -10,19 +10,7 @@ class Operations(object):
     def query_exec(self, name, columns, tables, expressions, order, where):
 
         if name == "select":
-            if expressions is not None:
-                print(expressions)
-            elif columns == ['*']:
-                df = pd.read_csv("Tables/" + tables[0])
-                #print(df.head())
-            else:
-                df = pd.read_csv("Tables/" + tables[0])
-                # print(columns)
-                # print(df.columns)
-                df = df[columns]
-
-                # df.sort_values(order, in_place=True)
-                #print(df.head())
+            df = pd.read_csv("Tables/" + tables[0])
             if where is not None:
                 # df = pd.read_csv("Tables/" + tables[0])
                 #print(where[2])
@@ -33,6 +21,21 @@ class Operations(object):
                     df = df[df[where[0]] > where[2][0]]
                 elif where[1] == '<':
                     df = df[df[where[0]] < where[2][0]]
+
+            if expressions is not None:
+                print(expressions)
+            elif columns == ['*']:
+                pass
+                #print(df.head())
+            else:
+                # df = pd.read_csv("Tables/" + tables[0])
+                # print(columns)
+                # print(df.columns)
+                df = df[columns]
+
+                # df.sort_values(order, in_place=True)
+                #print(df.head())
+
 
 
 
