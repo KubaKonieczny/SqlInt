@@ -221,17 +221,43 @@ def p_update(p):
     '''update : UPDATE table SET column '=' expression
                 | UPDATE table SET column '=' expression WHERE conlist
                 '''
+    t = p[2]
+    c = p[4]
+    e = p[6]
+    w = None
+    if len(p) == 9:
+        w = p[8]
+
+    op.query_exec("update", c, t, e, None, w)
 
 
 def p_insert(p):
     '''insert : INSERT table VALUES LPAR expressions RPAR
                 | INSERT table LPAR columns RPAR VALUES LPAR expressions RPAR'''
 
+    t = p[2]
+    c = None
+
+    if len(p) == 7:
+        e = p[5]
+    else:
+        e = p[8]
+        c = p[4]
+
+    op.query_exec("insert", c, t, e, None, None)
+
 
 def p_delete(p):
     '''delete : DELETE FROM tables
                 | DELETE FROM tables WHERE conlist'''
 
+    t = p[3]
+    w = None
+
+    if len(p) == 6:
+        w = p[5]
+
+    op.query_exec("delete", None, t, None, None, w)
 
 def p_select(p):
     ''' select : SELECT columns FROM tables WHERE conlist ORDER BY columns
