@@ -12,10 +12,12 @@ class Operations(object):
             df = pd.read_csv("Tables/" + tables[0])
             if where is not None:
                 # df = pd.read_csv("Tables/" + tables[0])
-                where = [item for sublist in [[item] if type(item) is not list else item for item in where] for item in sublist]
-                print(where)
-                print(where[2])
 
+                for i in range(len(where)):
+                    where = [item for sublist in [[item] if type(item) is not list else item for item in where] for item
+                             in sublist]
+
+                print(where)
                 i = 0
                 b = ''
 

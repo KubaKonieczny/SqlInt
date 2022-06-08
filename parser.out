@@ -38,8 +38,8 @@ Rule 28    tables -> tables COMMA table
 Rule 29    table -> NAME
 Rule 30    table -> NAME AS NAME
 Rule 31    conlist -> condition
-Rule 32    conlist -> condition AND condition
-Rule 33    conlist -> condition OR condition
+Rule 32    conlist -> condition AND conlist
+Rule 33    conlist -> condition OR conlist
 Rule 34    conlist -> NAME BETWEEN number AND number
 Rule 35    conlist -> NAME IN LPAR select RPAR
 Rule 36    texts -> TEXT
@@ -107,8 +107,8 @@ Nonterminals, with rules where they appear
 aggregate            : 38
 column               : 5 6 17 18 40 41 42 43 43 44 44 45 45
 columns              : 8 11 11 12 13 13 14 17
-condition            : 31 32 32 33 33
-conlist              : 6 10 11 12
+condition            : 31 32 33
+conlist              : 6 10 11 12 32 33
 delete               : 4
 double               : 47
 expression           : 5 6 15 16 50 51 52 53
@@ -344,8 +344,6 @@ state 15
     RPAR            reduce using rule 20 (column -> NAME .)
     $end            reduce using rule 20 (column -> NAME .)
     =               reduce using rule 20 (column -> NAME .)
-    >               reduce using rule 20 (column -> NAME .)
-    <               reduce using rule 20 (column -> NAME .)
     AND             reduce using rule 20 (column -> NAME .)
     OR              reduce using rule 20 (column -> NAME .)
     ORDER           reduce using rule 20 (column -> NAME .)
@@ -924,8 +922,8 @@ state 64
 
     (10) delete -> DELETE FROM tables WHERE . conlist
     (31) conlist -> . condition
-    (32) conlist -> . condition AND condition
-    (33) conlist -> . condition OR condition
+    (32) conlist -> . condition AND conlist
+    (33) conlist -> . condition OR conlist
     (34) conlist -> . NAME BETWEEN number AND number
     (35) conlist -> . NAME IN LPAR select RPAR
     (40) condition -> . column > value
@@ -960,8 +958,8 @@ state 66
     (11) select -> SELECT columns FROM tables WHERE . conlist ORDER BY columns
     (12) select -> SELECT columns FROM tables WHERE . conlist
     (31) conlist -> . condition
-    (32) conlist -> . condition AND condition
-    (33) conlist -> . condition OR condition
+    (32) conlist -> . condition AND conlist
+    (33) conlist -> . condition OR conlist
     (34) conlist -> . NAME BETWEEN number AND number
     (35) conlist -> . NAME IN LPAR select RPAR
     (40) condition -> . column > value
@@ -1165,8 +1163,8 @@ state 76
 state 77
 
     (31) conlist -> condition .
-    (32) conlist -> condition . AND condition
-    (33) conlist -> condition . OR condition
+    (32) conlist -> condition . AND conlist
+    (33) conlist -> condition . OR conlist
 
     $end            reduce using rule 31 (conlist -> condition .)
     ORDER           reduce using rule 31 (conlist -> condition .)
@@ -1283,7 +1281,12 @@ state 86
 
 state 87
 
-    (32) conlist -> condition AND . condition
+    (32) conlist -> condition AND . conlist
+    (31) conlist -> . condition
+    (32) conlist -> . condition AND conlist
+    (33) conlist -> . condition OR conlist
+    (34) conlist -> . NAME BETWEEN number AND number
+    (35) conlist -> . NAME IN LPAR select RPAR
     (40) condition -> . column > value
     (41) condition -> . column < value
     (42) condition -> . column = value
@@ -1294,15 +1297,21 @@ state 87
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
 
+    NAME            shift and go to state 78
     *               shift and go to state 14
-    NAME            shift and go to state 15
 
-    condition                      shift and go to state 100
+    condition                      shift and go to state 77
+    conlist                        shift and go to state 100
     column                         shift and go to state 79
 
 state 88
 
-    (33) conlist -> condition OR . condition
+    (33) conlist -> condition OR . conlist
+    (31) conlist -> . condition
+    (32) conlist -> . condition AND conlist
+    (33) conlist -> . condition OR conlist
+    (34) conlist -> . NAME BETWEEN number AND number
+    (35) conlist -> . NAME IN LPAR select RPAR
     (40) condition -> . column > value
     (41) condition -> . column < value
     (42) condition -> . column = value
@@ -1313,10 +1322,11 @@ state 88
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
 
+    NAME            shift and go to state 78
     *               shift and go to state 14
-    NAME            shift and go to state 15
 
-    condition                      shift and go to state 101
+    condition                      shift and go to state 77
+    conlist                        shift and go to state 101
     column                         shift and go to state 79
 
 state 89
@@ -1482,8 +1492,8 @@ state 96
 
     (6) update -> UPDATE table SET column = expression WHERE . conlist
     (31) conlist -> . condition
-    (32) conlist -> . condition AND condition
-    (33) conlist -> . condition OR condition
+    (32) conlist -> . condition AND conlist
+    (33) conlist -> . condition OR conlist
     (34) conlist -> . NAME BETWEEN number AND number
     (35) conlist -> . NAME IN LPAR select RPAR
     (40) condition -> . column > value
@@ -1556,20 +1566,20 @@ state 99
 
 state 100
 
-    (32) conlist -> condition AND condition .
+    (32) conlist -> condition AND conlist .
 
-    $end            reduce using rule 32 (conlist -> condition AND condition .)
-    ORDER           reduce using rule 32 (conlist -> condition AND condition .)
-    RPAR            reduce using rule 32 (conlist -> condition AND condition .)
+    $end            reduce using rule 32 (conlist -> condition AND conlist .)
+    ORDER           reduce using rule 32 (conlist -> condition AND conlist .)
+    RPAR            reduce using rule 32 (conlist -> condition AND conlist .)
 
 
 state 101
 
-    (33) conlist -> condition OR condition .
+    (33) conlist -> condition OR conlist .
 
-    $end            reduce using rule 33 (conlist -> condition OR condition .)
-    ORDER           reduce using rule 33 (conlist -> condition OR condition .)
-    RPAR            reduce using rule 33 (conlist -> condition OR condition .)
+    $end            reduce using rule 33 (conlist -> condition OR conlist .)
+    ORDER           reduce using rule 33 (conlist -> condition OR conlist .)
+    RPAR            reduce using rule 33 (conlist -> condition OR conlist .)
 
 
 state 102

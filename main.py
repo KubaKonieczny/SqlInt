@@ -353,8 +353,8 @@ def p_table(p):
 
 def p_conlist(p):
     ''' conlist : condition
-                | condition AND condition
-                | condition OR condition
+                | condition AND conlist
+                | condition OR conlist
                 | NAME BETWEEN number AND number
                 | NAME IN LPAR select RPAR
                  '''
