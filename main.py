@@ -173,9 +173,9 @@ def t_DOT(t):
     return t
 
 
-def t_PUNCTUATION(t):
-    r'\''
-    return t
+# def t_PUNCTUATION(t):
+#     r'\''
+#     return t
 
 def t_SET(t):
     r'[Ss][Ee][Tt]'
@@ -186,7 +186,7 @@ def t_NAME(t):
     return t
 
 def t_TEXT(t):
-    r'\'[\w]+|[\w\s]+\''
+    r'\'[\w]+\'|\'[\w\s]+\''
     return t
 
 
