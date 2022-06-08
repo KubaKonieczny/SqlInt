@@ -135,6 +135,13 @@ def t_AS(t):
     r'[Aa][Ss]'
     return t
 
+def t_VALUES(t):
+    r'[Vv][Aa][Ll][Uu][Ee][Ss]'
+    return t
+
+def t_TEXT(t):
+    r'[\w]+|[\w\s]+'
+    return t
 
 def t_DOUBLE(t):
     r'\d+\.\d+'
@@ -177,14 +184,10 @@ def t_SET(t):
     return t
 
 
-def t_VALUES(t):
-    r'[Vv][Aa][Ll][Uu][Ee][Ss]'
-    return t
 
 
-def t_TEXT(t):
-    r'[\w]+|[\w\s]+'
-    return t
+
+
 
 
 t_ignore = ' \t'
