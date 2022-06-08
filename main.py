@@ -8,6 +8,7 @@ reserved = {
     'SELECT': 'SELECT',
     'UPDATE': 'UPDATE',
     'INSERT': 'INSERT',
+    'INTO' : 'INTO',
     'DELETE': 'DELETE',
     'FROM': 'FROM',
     'WHERE': 'WHERE',
@@ -101,6 +102,9 @@ def t_BETWEEN(t):
     r'[Bb][Ee][Tt][Ww][Ee][Ee][Nn]'
     return t
 
+def t_INTO(t):
+    r'[Ii][Nn][Tt][Oo]'
+    return t
 
 def t_IN(t):
     r'[Ii][Nn]'
@@ -232,17 +236,17 @@ def p_update(p):
 
 
 def p_insert(p):
-    '''insert : INSERT table VALUES LPAR expressions RPAR
-                | INSERT table LPAR columns RPAR VALUES LPAR expressions RPAR'''
+    '''insert : INSERT INTO table VALUES LPAR expressions RPAR
+                | INSERT INTO table LPAR columns RPAR VALUES LPAR expressions RPAR'''
 
-    t = p[2]
+    t = p[3]
     c = None
 
-    if len(p) == 7:
-        e = p[5]
+    if len(p) == 8:
+        e = p[6]
     else:
-        e = p[8]
-        c = p[4]
+        e = p[9]
+        c = p[5]
 
     op.query_exec("insert", c, t, e, None, None)
 

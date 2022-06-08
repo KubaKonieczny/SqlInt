@@ -36,18 +36,34 @@ class Operations(object):
                 # df.sort_values(order, in_place=True)
                 #print(df.head())
 
-
-
-
-
             print(df)
 
         elif name == 'update':
             df = pd.read_csv("Tables/" + tables)
-            df.loc[:, columns] = expressions
+            print(expressions)
+            if where is None:
+                df.loc[:, columns] = expressions[0]
+                print(df.head(5))
+                df.to_csv("Tables/" + tables, index_col=False)
+
+            if where is not None:
+                # df = pd.read_csv("Tables/" + tables[0])
+                #print(where[2])
+                print(where[2])
+                if where[1] == '=':
+                    df.loc[df[where[0]] == where[2][0], columns] = expressions
+                elif where[1] == '>':
+                    df.loc[df[where[0]] > where[2][0], columns] = expressions
+                elif where[1] == '<':
+                    df.loc[df[where[0]] < where[2][0], columns] = expressions
+                print(df.head(5))
+                df.to_csv("Tables/" + tables, index_col=False)
+
         elif name == 'insert':
             df = pd.read_csv("Tables/" + tables)
-            df.loc[len(df.index)] = [expressions]
+            df.loc[len(df.index)] = expressions
+            print(df)
+            df.to_csv("Tables/" + tables, index_col=False)
         elif name == 'delete':
             df = pd.read_csv("Tables/" + tables)
             df.drop()
