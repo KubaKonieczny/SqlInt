@@ -73,9 +73,22 @@ class Operations(object):
                 print(df)
                 df.to_csv("Tables/" + tables, index=False)
         elif name == 'delete':
-            df = pd.read_csv("Tables/" + tables[0])
-            df.drop(df.index, inplace=True)
-            df.to_csv("Tables/" + tables[0], index=False)
+
+            if where is None:
+                df = pd.read_csv("Tables/" + tables[0])
+                df.drop(df.index, inplace=True)
+                df.to_csv("Tables/" + tables[0], index=False)
+
+            else:
+                df = pd.read_csv("Tables/" + tables[0])
+                if where[1] == '=':
+                    df.drop(df[df[where[0]] == where[2]].index, inplace=True)
+                elif where[1] == '>':
+                    df.drop(df[df[where[0]] > where[2]].index, inplace=True)
+                elif where[1] == '<':
+                    df.drop(df[df[where[0]] < where[2]].index, inplace=True)
+                print(df.head(5))
+                df.to_csv("Tables/" + tables[0], index=False)
 
 
 
