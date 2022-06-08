@@ -177,7 +177,6 @@ def t_PUNCTUATION(t):
     r'\''
     return t
 
-
 def t_SET(t):
     r'[Ss][Ee][Tt]'
     return t
@@ -185,11 +184,6 @@ def t_SET(t):
 def t_TEXT(t):
     r'[\w]+|[\w\s]+'
     return t
-
-
-
-
-
 
 
 t_ignore = ' \t'
@@ -315,8 +309,8 @@ def p_columns(p):
 
 def p_column(p):
     '''column :  '*'
-                | TEXT
-                | TEXT DOT TEXT
+                | NAME
+                | NAME DOT NAME
                 '''
     if len(p) == 2:
         p[0] = p[1]
@@ -347,8 +341,8 @@ def p_tables(p):
 
 
 def p_table(p):
-    ''' table : TEXT
-            | TEXT AS TEXT
+    ''' table : NAME
+            | NAME AS NAME
             '''
     p[0] = p[1]
 
@@ -358,8 +352,8 @@ def p_conlist(p):
                 | NOT condition
                 | condition AND condition
                 | condition OR condition
-                | TEXT BETWEEN number AND number
-                | TEXT IN LPAR select RPAR
+                | NAME BETWEEN number AND number
+                | NAME IN LPAR select RPAR
                  '''
     p[0] = p[1]
 
