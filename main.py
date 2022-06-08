@@ -31,7 +31,7 @@ reserved = {
 }
 
 # TOKENS
-tokens = ['DOT', 'COMMA', 'LPAR', 'RPAR', 'INTEGER', 'DOUBLE', 'TEXT', 'PUNCTUATION', 'NAME'] + list(reserved.values())
+tokens = ['DOT', 'COMMA', 'LPAR', 'RPAR', 'INTEGER', 'DOUBLE', 'TEXT', 'NAME'] + list(reserved.values())
 
 literals = ['+', '-', '*', '/', '=', '<', '>', '^']
 
@@ -361,23 +361,16 @@ def p_conlist(p):
                  '''
     p[0] = p[1]
 
-# def p_texts(p):
-#     '''texts : TEXT
-#                 | texts TEXT'''
-#
-#     text = []
-#     if len(p) == 2:
-#         text.append(p[1])
-#     elif len(p) == 3:
-#         for i in p[1]:
-#             text.append(i)
-#         text.append(p[2])
-#     p[0] = text
+def p_texts(p):
+    '''texts : TEXT
+               '''
+
+    p[0] = p[1][1:-1]
 
 def p_value(p):
     ''' value :  number
                 | aggregate
-                | TEXT  '''
+                | texts  '''
     if len(p) == 4:
         values = []
         for val in p[2]:

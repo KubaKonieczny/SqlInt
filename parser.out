@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    PUNCTUATION
-
 Grammar
 
 Rule 0     S' -> query
@@ -43,47 +39,48 @@ Rule 33    conlist -> condition AND condition
 Rule 34    conlist -> condition OR condition
 Rule 35    conlist -> NAME BETWEEN number AND number
 Rule 36    conlist -> NAME IN LPAR select RPAR
-Rule 37    value -> number
-Rule 38    value -> aggregate
-Rule 39    value -> TEXT
-Rule 40    condition -> column > value
-Rule 41    condition -> column < value
-Rule 42    condition -> column = value
-Rule 43    condition -> column > column
-Rule 44    condition -> column < column
-Rule 45    condition -> column = column
-Rule 46    number -> int
-Rule 47    number -> double
-Rule 48    int -> INTEGER
-Rule 49    double -> DOUBLE
-Rule 50    expressions -> expressions COMMA expression
-Rule 51    expressions -> expression
-Rule 52    expression -> expression + value
-Rule 53    expression -> expression - value
-Rule 54    expression -> value
+Rule 37    texts -> TEXT
+Rule 38    value -> number
+Rule 39    value -> aggregate
+Rule 40    value -> texts
+Rule 41    condition -> column > value
+Rule 42    condition -> column < value
+Rule 43    condition -> column = value
+Rule 44    condition -> column > column
+Rule 45    condition -> column < column
+Rule 46    condition -> column = column
+Rule 47    number -> int
+Rule 48    number -> double
+Rule 49    int -> INTEGER
+Rule 50    double -> DOUBLE
+Rule 51    expressions -> expressions COMMA expression
+Rule 52    expressions -> expression
+Rule 53    expression -> expression + value
+Rule 54    expression -> expression - value
+Rule 55    expression -> value
 
 Terminals, with rules where they appear
 
 *                    : 19
-+                    : 52
--                    : 53
-<                    : 41 44
-=                    : 5 6 42 45
->                    : 40 43
++                    : 53
+-                    : 54
+<                    : 42 45
+=                    : 5 6 43 46
+>                    : 41 44
 AND                  : 33 35
 AS                   : 30
 AVG                  : 23
 BETWEEN              : 35
 BY                   : 11 13
-COMMA                : 17 28 50
+COMMA                : 17 28 51
 COUNT                : 26
 DELETE               : 9 10
 DOT                  : 21
-DOUBLE               : 49
+DOUBLE               : 50
 FROM                 : 9 10 11 12 13 14 16
 IN                   : 36
 INSERT               : 7 8
-INTEGER              : 48
+INTEGER              : 49
 INTO                 : 7 8
 LPAR                 : 7 8 8 22 23 24 25 26 36
 MAX                  : 24
@@ -92,12 +89,11 @@ NAME                 : 20 21 21 29 30 30 35 36
 NOT                  : 32
 OR                   : 34
 ORDER                : 11 13
-PUNCTUATION          : 
 RPAR                 : 7 8 8 22 23 24 25 26 36
 SELECT               : 11 12 13 14 15 16
 SET                  : 5 6
 SUM                  : 22
-TEXT                 : 22 23 24 25 26 39
+TEXT                 : 22 23 24 25 26 37
 UPDATE               : 5 6
 VALUES               : 7 8
 WHERE                : 6 10 11 12
@@ -105,24 +101,25 @@ error                :
 
 Nonterminals, with rules where they appear
 
-aggregate            : 38
-column               : 5 6 17 18 40 41 42 43 43 44 44 45 45
+aggregate            : 39
+column               : 5 6 17 18 41 42 43 44 44 45 45 46 46
 columns              : 8 11 11 12 13 13 14 17
 condition            : 31 32 33 33 34 34
 conlist              : 6 10 11 12
 delete               : 4
-double               : 47
-expression           : 5 6 15 16 50 51 52 53
-expressions          : 7 8 50
+double               : 48
+expression           : 5 6 15 16 51 52 53 54
+expressions          : 7 8 51
 insert               : 3
-int                  : 46
-number               : 35 35 37
+int                  : 47
+number               : 35 35 38
 query                : 0
 select               : 1 36
 table                : 5 6 7 8 27 28
 tables               : 9 10 11 12 13 14 16 28
+texts                : 40
 update               : 2
-value                : 40 41 42 52 53 54
+value                : 41 42 43 53 54 55
 
 Parsing method: LALR
 
@@ -201,35 +198,36 @@ state 6
     (16) select -> SELECT . expression FROM tables
     (17) columns -> . columns COMMA column
     (18) columns -> . column
-    (52) expression -> . expression + value
-    (53) expression -> . expression - value
-    (54) expression -> . value
+    (53) expression -> . expression + value
+    (54) expression -> . expression - value
+    (55) expression -> . value
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
     *               shift and go to state 14
     NAME            shift and go to state 15
-    TEXT            shift and go to state 18
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
     columns                        shift and go to state 10
     expression                     shift and go to state 11
@@ -237,6 +235,7 @@ state 6
     value                          shift and go to state 13
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
@@ -247,16 +246,16 @@ state 7
     (29) table -> . NAME
     (30) table -> . NAME AS NAME
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
-    table                          shift and go to state 28
+    table                          shift and go to state 29
 
 state 8
 
     (7) insert -> INSERT . INTO table VALUES LPAR expressions RPAR
     (8) insert -> INSERT . INTO table LPAR columns RPAR VALUES LPAR expressions RPAR
 
-    INTO            shift and go to state 30
+    INTO            shift and go to state 31
 
 
 state 9
@@ -264,7 +263,7 @@ state 9
     (9) delete -> DELETE . FROM tables
     (10) delete -> DELETE . FROM tables WHERE conlist
 
-    FROM            shift and go to state 31
+    FROM            shift and go to state 32
 
 
 state 10
@@ -275,22 +274,22 @@ state 10
     (14) select -> SELECT columns . FROM tables
     (17) columns -> columns . COMMA column
 
-    FROM            shift and go to state 32
-    COMMA           shift and go to state 33
+    FROM            shift and go to state 33
+    COMMA           shift and go to state 34
 
 
 state 11
 
     (15) select -> SELECT expression .
     (16) select -> SELECT expression . FROM tables
-    (52) expression -> expression . + value
-    (53) expression -> expression . - value
+    (53) expression -> expression . + value
+    (54) expression -> expression . - value
 
     $end            reduce using rule 15 (select -> SELECT expression .)
     RPAR            reduce using rule 15 (select -> SELECT expression .)
-    FROM            shift and go to state 34
-    +               shift and go to state 35
-    -               shift and go to state 36
+    FROM            shift and go to state 35
+    +               shift and go to state 36
+    -               shift and go to state 37
 
 
 state 12
@@ -305,15 +304,15 @@ state 12
 
 state 13
 
-    (54) expression -> value .
+    (55) expression -> value .
 
-    FROM            reduce using rule 54 (expression -> value .)
-    +               reduce using rule 54 (expression -> value .)
-    -               reduce using rule 54 (expression -> value .)
-    $end            reduce using rule 54 (expression -> value .)
-    RPAR            reduce using rule 54 (expression -> value .)
-    WHERE           reduce using rule 54 (expression -> value .)
-    COMMA           reduce using rule 54 (expression -> value .)
+    FROM            reduce using rule 55 (expression -> value .)
+    +               reduce using rule 55 (expression -> value .)
+    -               reduce using rule 55 (expression -> value .)
+    $end            reduce using rule 55 (expression -> value .)
+    RPAR            reduce using rule 55 (expression -> value .)
+    WHERE           reduce using rule 55 (expression -> value .)
+    COMMA           reduce using rule 55 (expression -> value .)
 
 
 state 14
@@ -347,165 +346,181 @@ state 15
     AND             reduce using rule 20 (column -> NAME .)
     OR              reduce using rule 20 (column -> NAME .)
     ORDER           reduce using rule 20 (column -> NAME .)
-    DOT             shift and go to state 37
+    DOT             shift and go to state 38
 
 
 state 16
 
-    (37) value -> number .
+    (38) value -> number .
 
-    FROM            reduce using rule 37 (value -> number .)
-    +               reduce using rule 37 (value -> number .)
-    -               reduce using rule 37 (value -> number .)
-    $end            reduce using rule 37 (value -> number .)
-    RPAR            reduce using rule 37 (value -> number .)
-    WHERE           reduce using rule 37 (value -> number .)
-    COMMA           reduce using rule 37 (value -> number .)
-    AND             reduce using rule 37 (value -> number .)
-    OR              reduce using rule 37 (value -> number .)
-    ORDER           reduce using rule 37 (value -> number .)
+    FROM            reduce using rule 38 (value -> number .)
+    +               reduce using rule 38 (value -> number .)
+    -               reduce using rule 38 (value -> number .)
+    $end            reduce using rule 38 (value -> number .)
+    RPAR            reduce using rule 38 (value -> number .)
+    WHERE           reduce using rule 38 (value -> number .)
+    COMMA           reduce using rule 38 (value -> number .)
+    AND             reduce using rule 38 (value -> number .)
+    OR              reduce using rule 38 (value -> number .)
+    ORDER           reduce using rule 38 (value -> number .)
 
 
 state 17
 
-    (38) value -> aggregate .
+    (39) value -> aggregate .
 
-    FROM            reduce using rule 38 (value -> aggregate .)
-    +               reduce using rule 38 (value -> aggregate .)
-    -               reduce using rule 38 (value -> aggregate .)
-    $end            reduce using rule 38 (value -> aggregate .)
-    RPAR            reduce using rule 38 (value -> aggregate .)
-    WHERE           reduce using rule 38 (value -> aggregate .)
-    COMMA           reduce using rule 38 (value -> aggregate .)
-    AND             reduce using rule 38 (value -> aggregate .)
-    OR              reduce using rule 38 (value -> aggregate .)
-    ORDER           reduce using rule 38 (value -> aggregate .)
+    FROM            reduce using rule 39 (value -> aggregate .)
+    +               reduce using rule 39 (value -> aggregate .)
+    -               reduce using rule 39 (value -> aggregate .)
+    $end            reduce using rule 39 (value -> aggregate .)
+    RPAR            reduce using rule 39 (value -> aggregate .)
+    WHERE           reduce using rule 39 (value -> aggregate .)
+    COMMA           reduce using rule 39 (value -> aggregate .)
+    AND             reduce using rule 39 (value -> aggregate .)
+    OR              reduce using rule 39 (value -> aggregate .)
+    ORDER           reduce using rule 39 (value -> aggregate .)
 
 
 state 18
 
-    (39) value -> TEXT .
+    (40) value -> texts .
 
-    FROM            reduce using rule 39 (value -> TEXT .)
-    +               reduce using rule 39 (value -> TEXT .)
-    -               reduce using rule 39 (value -> TEXT .)
-    $end            reduce using rule 39 (value -> TEXT .)
-    RPAR            reduce using rule 39 (value -> TEXT .)
-    WHERE           reduce using rule 39 (value -> TEXT .)
-    COMMA           reduce using rule 39 (value -> TEXT .)
-    AND             reduce using rule 39 (value -> TEXT .)
-    OR              reduce using rule 39 (value -> TEXT .)
-    ORDER           reduce using rule 39 (value -> TEXT .)
+    FROM            reduce using rule 40 (value -> texts .)
+    +               reduce using rule 40 (value -> texts .)
+    -               reduce using rule 40 (value -> texts .)
+    $end            reduce using rule 40 (value -> texts .)
+    RPAR            reduce using rule 40 (value -> texts .)
+    WHERE           reduce using rule 40 (value -> texts .)
+    COMMA           reduce using rule 40 (value -> texts .)
+    AND             reduce using rule 40 (value -> texts .)
+    OR              reduce using rule 40 (value -> texts .)
+    ORDER           reduce using rule 40 (value -> texts .)
 
 
 state 19
 
-    (46) number -> int .
+    (47) number -> int .
 
-    FROM            reduce using rule 46 (number -> int .)
-    +               reduce using rule 46 (number -> int .)
-    -               reduce using rule 46 (number -> int .)
-    $end            reduce using rule 46 (number -> int .)
-    RPAR            reduce using rule 46 (number -> int .)
-    WHERE           reduce using rule 46 (number -> int .)
-    COMMA           reduce using rule 46 (number -> int .)
-    AND             reduce using rule 46 (number -> int .)
-    OR              reduce using rule 46 (number -> int .)
-    ORDER           reduce using rule 46 (number -> int .)
+    FROM            reduce using rule 47 (number -> int .)
+    +               reduce using rule 47 (number -> int .)
+    -               reduce using rule 47 (number -> int .)
+    $end            reduce using rule 47 (number -> int .)
+    RPAR            reduce using rule 47 (number -> int .)
+    WHERE           reduce using rule 47 (number -> int .)
+    COMMA           reduce using rule 47 (number -> int .)
+    AND             reduce using rule 47 (number -> int .)
+    OR              reduce using rule 47 (number -> int .)
+    ORDER           reduce using rule 47 (number -> int .)
 
 
 state 20
 
-    (47) number -> double .
+    (48) number -> double .
 
-    FROM            reduce using rule 47 (number -> double .)
-    +               reduce using rule 47 (number -> double .)
-    -               reduce using rule 47 (number -> double .)
-    $end            reduce using rule 47 (number -> double .)
-    RPAR            reduce using rule 47 (number -> double .)
-    WHERE           reduce using rule 47 (number -> double .)
-    COMMA           reduce using rule 47 (number -> double .)
-    AND             reduce using rule 47 (number -> double .)
-    OR              reduce using rule 47 (number -> double .)
-    ORDER           reduce using rule 47 (number -> double .)
+    FROM            reduce using rule 48 (number -> double .)
+    +               reduce using rule 48 (number -> double .)
+    -               reduce using rule 48 (number -> double .)
+    $end            reduce using rule 48 (number -> double .)
+    RPAR            reduce using rule 48 (number -> double .)
+    WHERE           reduce using rule 48 (number -> double .)
+    COMMA           reduce using rule 48 (number -> double .)
+    AND             reduce using rule 48 (number -> double .)
+    OR              reduce using rule 48 (number -> double .)
+    ORDER           reduce using rule 48 (number -> double .)
 
 
 state 21
 
     (22) aggregate -> SUM . LPAR TEXT RPAR
 
-    LPAR            shift and go to state 38
+    LPAR            shift and go to state 39
 
 
 state 22
 
-    (23) aggregate -> AVG . LPAR TEXT RPAR
+    (37) texts -> TEXT .
 
-    LPAR            shift and go to state 39
+    FROM            reduce using rule 37 (texts -> TEXT .)
+    +               reduce using rule 37 (texts -> TEXT .)
+    -               reduce using rule 37 (texts -> TEXT .)
+    $end            reduce using rule 37 (texts -> TEXT .)
+    RPAR            reduce using rule 37 (texts -> TEXT .)
+    WHERE           reduce using rule 37 (texts -> TEXT .)
+    COMMA           reduce using rule 37 (texts -> TEXT .)
+    AND             reduce using rule 37 (texts -> TEXT .)
+    OR              reduce using rule 37 (texts -> TEXT .)
+    ORDER           reduce using rule 37 (texts -> TEXT .)
 
 
 state 23
 
-    (24) aggregate -> MAX . LPAR TEXT RPAR
+    (23) aggregate -> AVG . LPAR TEXT RPAR
 
     LPAR            shift and go to state 40
 
 
 state 24
 
-    (25) aggregate -> MIN . LPAR TEXT RPAR
+    (24) aggregate -> MAX . LPAR TEXT RPAR
 
     LPAR            shift and go to state 41
 
 
 state 25
 
-    (26) aggregate -> COUNT . LPAR TEXT RPAR
+    (25) aggregate -> MIN . LPAR TEXT RPAR
 
     LPAR            shift and go to state 42
 
 
 state 26
 
-    (48) int -> INTEGER .
+    (26) aggregate -> COUNT . LPAR TEXT RPAR
 
-    FROM            reduce using rule 48 (int -> INTEGER .)
-    +               reduce using rule 48 (int -> INTEGER .)
-    -               reduce using rule 48 (int -> INTEGER .)
-    $end            reduce using rule 48 (int -> INTEGER .)
-    RPAR            reduce using rule 48 (int -> INTEGER .)
-    WHERE           reduce using rule 48 (int -> INTEGER .)
-    COMMA           reduce using rule 48 (int -> INTEGER .)
-    AND             reduce using rule 48 (int -> INTEGER .)
-    OR              reduce using rule 48 (int -> INTEGER .)
-    ORDER           reduce using rule 48 (int -> INTEGER .)
+    LPAR            shift and go to state 43
 
 
 state 27
 
-    (49) double -> DOUBLE .
+    (49) int -> INTEGER .
 
-    FROM            reduce using rule 49 (double -> DOUBLE .)
-    +               reduce using rule 49 (double -> DOUBLE .)
-    -               reduce using rule 49 (double -> DOUBLE .)
-    $end            reduce using rule 49 (double -> DOUBLE .)
-    RPAR            reduce using rule 49 (double -> DOUBLE .)
-    WHERE           reduce using rule 49 (double -> DOUBLE .)
-    COMMA           reduce using rule 49 (double -> DOUBLE .)
-    AND             reduce using rule 49 (double -> DOUBLE .)
-    OR              reduce using rule 49 (double -> DOUBLE .)
-    ORDER           reduce using rule 49 (double -> DOUBLE .)
+    FROM            reduce using rule 49 (int -> INTEGER .)
+    +               reduce using rule 49 (int -> INTEGER .)
+    -               reduce using rule 49 (int -> INTEGER .)
+    $end            reduce using rule 49 (int -> INTEGER .)
+    RPAR            reduce using rule 49 (int -> INTEGER .)
+    WHERE           reduce using rule 49 (int -> INTEGER .)
+    COMMA           reduce using rule 49 (int -> INTEGER .)
+    AND             reduce using rule 49 (int -> INTEGER .)
+    OR              reduce using rule 49 (int -> INTEGER .)
+    ORDER           reduce using rule 49 (int -> INTEGER .)
 
 
 state 28
 
-    (5) update -> UPDATE table . SET column = expression
-    (6) update -> UPDATE table . SET column = expression WHERE conlist
+    (50) double -> DOUBLE .
 
-    SET             shift and go to state 43
+    FROM            reduce using rule 50 (double -> DOUBLE .)
+    +               reduce using rule 50 (double -> DOUBLE .)
+    -               reduce using rule 50 (double -> DOUBLE .)
+    $end            reduce using rule 50 (double -> DOUBLE .)
+    RPAR            reduce using rule 50 (double -> DOUBLE .)
+    WHERE           reduce using rule 50 (double -> DOUBLE .)
+    COMMA           reduce using rule 50 (double -> DOUBLE .)
+    AND             reduce using rule 50 (double -> DOUBLE .)
+    OR              reduce using rule 50 (double -> DOUBLE .)
+    ORDER           reduce using rule 50 (double -> DOUBLE .)
 
 
 state 29
+
+    (5) update -> UPDATE table . SET column = expression
+    (6) update -> UPDATE table . SET column = expression WHERE conlist
+
+    SET             shift and go to state 44
+
+
+state 30
 
     (29) table -> NAME .
     (30) table -> NAME . AS NAME
@@ -518,21 +533,21 @@ state 29
     $end            reduce using rule 29 (table -> NAME .)
     ORDER           reduce using rule 29 (table -> NAME .)
     RPAR            reduce using rule 29 (table -> NAME .)
-    AS              shift and go to state 44
+    AS              shift and go to state 45
 
 
-state 30
+state 31
 
     (7) insert -> INSERT INTO . table VALUES LPAR expressions RPAR
     (8) insert -> INSERT INTO . table LPAR columns RPAR VALUES LPAR expressions RPAR
     (29) table -> . NAME
     (30) table -> . NAME AS NAME
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
-    table                          shift and go to state 45
+    table                          shift and go to state 46
 
-state 31
+state 32
 
     (9) delete -> DELETE FROM . tables
     (10) delete -> DELETE FROM . tables WHERE conlist
@@ -541,12 +556,12 @@ state 31
     (29) table -> . NAME
     (30) table -> . NAME AS NAME
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
-    tables                         shift and go to state 46
-    table                          shift and go to state 47
+    tables                         shift and go to state 47
+    table                          shift and go to state 48
 
-state 32
+state 33
 
     (11) select -> SELECT columns FROM . tables WHERE conlist ORDER BY columns
     (12) select -> SELECT columns FROM . tables WHERE conlist
@@ -557,12 +572,12 @@ state 32
     (29) table -> . NAME
     (30) table -> . NAME AS NAME
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
-    tables                         shift and go to state 48
-    table                          shift and go to state 47
+    tables                         shift and go to state 49
+    table                          shift and go to state 48
 
-state 33
+state 34
 
     (17) columns -> columns COMMA . column
     (19) column -> . *
@@ -572,9 +587,9 @@ state 33
     *               shift and go to state 14
     NAME            shift and go to state 15
 
-    column                         shift and go to state 49
+    column                         shift and go to state 50
 
-state 34
+state 35
 
     (16) select -> SELECT expression FROM . tables
     (27) tables -> . table
@@ -582,116 +597,120 @@ state 34
     (29) table -> . NAME
     (30) table -> . NAME AS NAME
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
-    tables                         shift and go to state 50
-    table                          shift and go to state 47
-
-state 35
-
-    (52) expression -> expression + . value
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
-    (22) aggregate -> . SUM LPAR TEXT RPAR
-    (23) aggregate -> . AVG LPAR TEXT RPAR
-    (24) aggregate -> . MAX LPAR TEXT RPAR
-    (25) aggregate -> . MIN LPAR TEXT RPAR
-    (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
-
-    TEXT            shift and go to state 18
-    SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
-
-    value                          shift and go to state 51
-    number                         shift and go to state 16
-    aggregate                      shift and go to state 17
-    int                            shift and go to state 19
-    double                         shift and go to state 20
+    tables                         shift and go to state 51
+    table                          shift and go to state 48
 
 state 36
 
-    (53) expression -> expression - . value
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
+    (53) expression -> expression + . value
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    TEXT            shift and go to state 18
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
     value                          shift and go to state 52
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
 state 37
 
-    (21) column -> NAME DOT . NAME
+    (54) expression -> expression - . value
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
+    (22) aggregate -> . SUM LPAR TEXT RPAR
+    (23) aggregate -> . AVG LPAR TEXT RPAR
+    (24) aggregate -> . MAX LPAR TEXT RPAR
+    (25) aggregate -> . MIN LPAR TEXT RPAR
+    (26) aggregate -> . COUNT LPAR TEXT RPAR
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    NAME            shift and go to state 53
+    SUM             shift and go to state 21
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
+    value                          shift and go to state 53
+    number                         shift and go to state 16
+    aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
+    int                            shift and go to state 19
+    double                         shift and go to state 20
 
 state 38
 
-    (22) aggregate -> SUM LPAR . TEXT RPAR
+    (21) column -> NAME DOT . NAME
 
-    TEXT            shift and go to state 54
+    NAME            shift and go to state 54
 
 
 state 39
 
-    (23) aggregate -> AVG LPAR . TEXT RPAR
+    (22) aggregate -> SUM LPAR . TEXT RPAR
 
     TEXT            shift and go to state 55
 
 
 state 40
 
-    (24) aggregate -> MAX LPAR . TEXT RPAR
+    (23) aggregate -> AVG LPAR . TEXT RPAR
 
     TEXT            shift and go to state 56
 
 
 state 41
 
-    (25) aggregate -> MIN LPAR . TEXT RPAR
+    (24) aggregate -> MAX LPAR . TEXT RPAR
 
     TEXT            shift and go to state 57
 
 
 state 42
 
-    (26) aggregate -> COUNT LPAR . TEXT RPAR
+    (25) aggregate -> MIN LPAR . TEXT RPAR
 
     TEXT            shift and go to state 58
 
 
 state 43
+
+    (26) aggregate -> COUNT LPAR . TEXT RPAR
+
+    TEXT            shift and go to state 59
+
+
+state 44
 
     (5) update -> UPDATE table SET . column = expression
     (6) update -> UPDATE table SET . column = expression WHERE conlist
@@ -702,36 +721,36 @@ state 43
     *               shift and go to state 14
     NAME            shift and go to state 15
 
-    column                         shift and go to state 59
+    column                         shift and go to state 60
 
-state 44
+state 45
 
     (30) table -> NAME AS . NAME
 
-    NAME            shift and go to state 60
+    NAME            shift and go to state 61
 
 
-state 45
+state 46
 
     (7) insert -> INSERT INTO table . VALUES LPAR expressions RPAR
     (8) insert -> INSERT INTO table . LPAR columns RPAR VALUES LPAR expressions RPAR
 
-    VALUES          shift and go to state 61
-    LPAR            shift and go to state 62
+    VALUES          shift and go to state 62
+    LPAR            shift and go to state 63
 
 
-state 46
+state 47
 
     (9) delete -> DELETE FROM tables .
     (10) delete -> DELETE FROM tables . WHERE conlist
     (28) tables -> tables . COMMA table
 
     $end            reduce using rule 9 (delete -> DELETE FROM tables .)
-    WHERE           shift and go to state 63
-    COMMA           shift and go to state 64
+    WHERE           shift and go to state 64
+    COMMA           shift and go to state 65
 
 
-state 47
+state 48
 
     (27) tables -> table .
 
@@ -742,7 +761,7 @@ state 47
     RPAR            reduce using rule 27 (tables -> table .)
 
 
-state 48
+state 49
 
     (11) select -> SELECT columns FROM tables . WHERE conlist ORDER BY columns
     (12) select -> SELECT columns FROM tables . WHERE conlist
@@ -750,14 +769,14 @@ state 48
     (14) select -> SELECT columns FROM tables .
     (28) tables -> tables . COMMA table
 
-    WHERE           shift and go to state 65
-    ORDER           shift and go to state 66
+    WHERE           shift and go to state 66
+    ORDER           shift and go to state 67
     $end            reduce using rule 14 (select -> SELECT columns FROM tables .)
     RPAR            reduce using rule 14 (select -> SELECT columns FROM tables .)
-    COMMA           shift and go to state 64
+    COMMA           shift and go to state 65
 
 
-state 49
+state 50
 
     (17) columns -> columns COMMA column .
 
@@ -767,43 +786,43 @@ state 49
     $end            reduce using rule 17 (columns -> columns COMMA column .)
 
 
-state 50
+state 51
 
     (16) select -> SELECT expression FROM tables .
     (28) tables -> tables . COMMA table
 
     $end            reduce using rule 16 (select -> SELECT expression FROM tables .)
     RPAR            reduce using rule 16 (select -> SELECT expression FROM tables .)
-    COMMA           shift and go to state 64
-
-
-state 51
-
-    (52) expression -> expression + value .
-
-    FROM            reduce using rule 52 (expression -> expression + value .)
-    +               reduce using rule 52 (expression -> expression + value .)
-    -               reduce using rule 52 (expression -> expression + value .)
-    $end            reduce using rule 52 (expression -> expression + value .)
-    RPAR            reduce using rule 52 (expression -> expression + value .)
-    WHERE           reduce using rule 52 (expression -> expression + value .)
-    COMMA           reduce using rule 52 (expression -> expression + value .)
+    COMMA           shift and go to state 65
 
 
 state 52
 
-    (53) expression -> expression - value .
+    (53) expression -> expression + value .
 
-    FROM            reduce using rule 53 (expression -> expression - value .)
-    +               reduce using rule 53 (expression -> expression - value .)
-    -               reduce using rule 53 (expression -> expression - value .)
-    $end            reduce using rule 53 (expression -> expression - value .)
-    RPAR            reduce using rule 53 (expression -> expression - value .)
-    WHERE           reduce using rule 53 (expression -> expression - value .)
-    COMMA           reduce using rule 53 (expression -> expression - value .)
+    FROM            reduce using rule 53 (expression -> expression + value .)
+    +               reduce using rule 53 (expression -> expression + value .)
+    -               reduce using rule 53 (expression -> expression + value .)
+    $end            reduce using rule 53 (expression -> expression + value .)
+    RPAR            reduce using rule 53 (expression -> expression + value .)
+    WHERE           reduce using rule 53 (expression -> expression + value .)
+    COMMA           reduce using rule 53 (expression -> expression + value .)
 
 
 state 53
+
+    (54) expression -> expression - value .
+
+    FROM            reduce using rule 54 (expression -> expression - value .)
+    +               reduce using rule 54 (expression -> expression - value .)
+    -               reduce using rule 54 (expression -> expression - value .)
+    $end            reduce using rule 54 (expression -> expression - value .)
+    RPAR            reduce using rule 54 (expression -> expression - value .)
+    WHERE           reduce using rule 54 (expression -> expression - value .)
+    COMMA           reduce using rule 54 (expression -> expression - value .)
+
+
+state 54
 
     (21) column -> NAME DOT NAME .
 
@@ -819,50 +838,50 @@ state 53
     ORDER           reduce using rule 21 (column -> NAME DOT NAME .)
 
 
-state 54
-
-    (22) aggregate -> SUM LPAR TEXT . RPAR
-
-    RPAR            shift and go to state 67
-
-
 state 55
 
-    (23) aggregate -> AVG LPAR TEXT . RPAR
+    (22) aggregate -> SUM LPAR TEXT . RPAR
 
     RPAR            shift and go to state 68
 
 
 state 56
 
-    (24) aggregate -> MAX LPAR TEXT . RPAR
+    (23) aggregate -> AVG LPAR TEXT . RPAR
 
     RPAR            shift and go to state 69
 
 
 state 57
 
-    (25) aggregate -> MIN LPAR TEXT . RPAR
+    (24) aggregate -> MAX LPAR TEXT . RPAR
 
     RPAR            shift and go to state 70
 
 
 state 58
 
-    (26) aggregate -> COUNT LPAR TEXT . RPAR
+    (25) aggregate -> MIN LPAR TEXT . RPAR
 
     RPAR            shift and go to state 71
 
 
 state 59
 
-    (5) update -> UPDATE table SET column . = expression
-    (6) update -> UPDATE table SET column . = expression WHERE conlist
+    (26) aggregate -> COUNT LPAR TEXT . RPAR
 
-    =               shift and go to state 72
+    RPAR            shift and go to state 72
 
 
 state 60
+
+    (5) update -> UPDATE table SET column . = expression
+    (6) update -> UPDATE table SET column . = expression WHERE conlist
+
+    =               shift and go to state 73
+
+
+state 61
 
     (30) table -> NAME AS NAME .
 
@@ -876,14 +895,14 @@ state 60
     RPAR            reduce using rule 30 (table -> NAME AS NAME .)
 
 
-state 61
+state 62
 
     (7) insert -> INSERT INTO table VALUES . LPAR expressions RPAR
 
-    LPAR            shift and go to state 73
+    LPAR            shift and go to state 74
 
 
-state 62
+state 63
 
     (8) insert -> INSERT INTO table LPAR . columns RPAR VALUES LPAR expressions RPAR
     (17) columns -> . columns COMMA column
@@ -895,10 +914,10 @@ state 62
     *               shift and go to state 14
     NAME            shift and go to state 15
 
-    columns                        shift and go to state 74
+    columns                        shift and go to state 75
     column                         shift and go to state 12
 
-state 63
+state 64
 
     (10) delete -> DELETE FROM tables WHERE . conlist
     (31) conlist -> . condition
@@ -907,35 +926,35 @@ state 63
     (34) conlist -> . condition OR condition
     (35) conlist -> . NAME BETWEEN number AND number
     (36) conlist -> . NAME IN LPAR select RPAR
-    (40) condition -> . column > value
-    (41) condition -> . column < value
-    (42) condition -> . column = value
-    (43) condition -> . column > column
-    (44) condition -> . column < column
-    (45) condition -> . column = column
+    (41) condition -> . column > value
+    (42) condition -> . column < value
+    (43) condition -> . column = value
+    (44) condition -> . column > column
+    (45) condition -> . column < column
+    (46) condition -> . column = column
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
 
-    NOT             shift and go to state 77
-    NAME            shift and go to state 78
+    NOT             shift and go to state 78
+    NAME            shift and go to state 79
     *               shift and go to state 14
 
-    conlist                        shift and go to state 75
-    condition                      shift and go to state 76
-    column                         shift and go to state 79
+    conlist                        shift and go to state 76
+    condition                      shift and go to state 77
+    column                         shift and go to state 80
 
-state 64
+state 65
 
     (28) tables -> tables COMMA . table
     (29) table -> . NAME
     (30) table -> . NAME AS NAME
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
-    table                          shift and go to state 80
+    table                          shift and go to state 81
 
-state 65
+state 66
 
     (11) select -> SELECT columns FROM tables WHERE . conlist ORDER BY columns
     (12) select -> SELECT columns FROM tables WHERE . conlist
@@ -945,32 +964,32 @@ state 65
     (34) conlist -> . condition OR condition
     (35) conlist -> . NAME BETWEEN number AND number
     (36) conlist -> . NAME IN LPAR select RPAR
-    (40) condition -> . column > value
-    (41) condition -> . column < value
-    (42) condition -> . column = value
-    (43) condition -> . column > column
-    (44) condition -> . column < column
-    (45) condition -> . column = column
+    (41) condition -> . column > value
+    (42) condition -> . column < value
+    (43) condition -> . column = value
+    (44) condition -> . column > column
+    (45) condition -> . column < column
+    (46) condition -> . column = column
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
 
-    NOT             shift and go to state 77
-    NAME            shift and go to state 78
+    NOT             shift and go to state 78
+    NAME            shift and go to state 79
     *               shift and go to state 14
 
-    conlist                        shift and go to state 81
-    condition                      shift and go to state 76
-    column                         shift and go to state 79
+    conlist                        shift and go to state 82
+    condition                      shift and go to state 77
+    column                         shift and go to state 80
 
-state 66
+state 67
 
     (13) select -> SELECT columns FROM tables ORDER . BY columns
 
-    BY              shift and go to state 82
+    BY              shift and go to state 83
 
 
-state 67
+state 68
 
     (22) aggregate -> SUM LPAR TEXT RPAR .
 
@@ -986,7 +1005,7 @@ state 67
     ORDER           reduce using rule 22 (aggregate -> SUM LPAR TEXT RPAR .)
 
 
-state 68
+state 69
 
     (23) aggregate -> AVG LPAR TEXT RPAR .
 
@@ -1002,7 +1021,7 @@ state 68
     ORDER           reduce using rule 23 (aggregate -> AVG LPAR TEXT RPAR .)
 
 
-state 69
+state 70
 
     (24) aggregate -> MAX LPAR TEXT RPAR .
 
@@ -1018,7 +1037,7 @@ state 69
     ORDER           reduce using rule 24 (aggregate -> MAX LPAR TEXT RPAR .)
 
 
-state 70
+state 71
 
     (25) aggregate -> MIN LPAR TEXT RPAR .
 
@@ -1034,7 +1053,7 @@ state 70
     ORDER           reduce using rule 25 (aggregate -> MIN LPAR TEXT RPAR .)
 
 
-state 71
+state 72
 
     (26) aggregate -> COUNT LPAR TEXT RPAR .
 
@@ -1050,97 +1069,101 @@ state 71
     ORDER           reduce using rule 26 (aggregate -> COUNT LPAR TEXT RPAR .)
 
 
-state 72
+state 73
 
     (5) update -> UPDATE table SET column = . expression
     (6) update -> UPDATE table SET column = . expression WHERE conlist
-    (52) expression -> . expression + value
-    (53) expression -> . expression - value
-    (54) expression -> . value
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
+    (53) expression -> . expression + value
+    (54) expression -> . expression - value
+    (55) expression -> . value
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    TEXT            shift and go to state 18
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
-    expression                     shift and go to state 83
+    expression                     shift and go to state 84
     value                          shift and go to state 13
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
-    int                            shift and go to state 19
-    double                         shift and go to state 20
-
-state 73
-
-    (7) insert -> INSERT INTO table VALUES LPAR . expressions RPAR
-    (50) expressions -> . expressions COMMA expression
-    (51) expressions -> . expression
-    (52) expression -> . expression + value
-    (53) expression -> . expression - value
-    (54) expression -> . value
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
-    (22) aggregate -> . SUM LPAR TEXT RPAR
-    (23) aggregate -> . AVG LPAR TEXT RPAR
-    (24) aggregate -> . MAX LPAR TEXT RPAR
-    (25) aggregate -> . MIN LPAR TEXT RPAR
-    (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
-
-    TEXT            shift and go to state 18
-    SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
-
-    expressions                    shift and go to state 84
-    expression                     shift and go to state 85
-    value                          shift and go to state 13
-    number                         shift and go to state 16
-    aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
 state 74
 
+    (7) insert -> INSERT INTO table VALUES LPAR . expressions RPAR
+    (51) expressions -> . expressions COMMA expression
+    (52) expressions -> . expression
+    (53) expression -> . expression + value
+    (54) expression -> . expression - value
+    (55) expression -> . value
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
+    (22) aggregate -> . SUM LPAR TEXT RPAR
+    (23) aggregate -> . AVG LPAR TEXT RPAR
+    (24) aggregate -> . MAX LPAR TEXT RPAR
+    (25) aggregate -> . MIN LPAR TEXT RPAR
+    (26) aggregate -> . COUNT LPAR TEXT RPAR
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
+
+    SUM             shift and go to state 21
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
+
+    expressions                    shift and go to state 85
+    expression                     shift and go to state 86
+    value                          shift and go to state 13
+    number                         shift and go to state 16
+    aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
+    int                            shift and go to state 19
+    double                         shift and go to state 20
+
+state 75
+
     (8) insert -> INSERT INTO table LPAR columns . RPAR VALUES LPAR expressions RPAR
     (17) columns -> columns . COMMA column
 
-    RPAR            shift and go to state 86
-    COMMA           shift and go to state 33
+    RPAR            shift and go to state 87
+    COMMA           shift and go to state 34
 
 
-state 75
+state 76
 
     (10) delete -> DELETE FROM tables WHERE conlist .
 
     $end            reduce using rule 10 (delete -> DELETE FROM tables WHERE conlist .)
 
 
-state 76
+state 77
 
     (31) conlist -> condition .
     (33) conlist -> condition . AND condition
@@ -1149,19 +1172,19 @@ state 76
     $end            reduce using rule 31 (conlist -> condition .)
     ORDER           reduce using rule 31 (conlist -> condition .)
     RPAR            reduce using rule 31 (conlist -> condition .)
-    AND             shift and go to state 87
-    OR              shift and go to state 88
+    AND             shift and go to state 88
+    OR              shift and go to state 89
 
 
-state 77
+state 78
 
     (32) conlist -> NOT . condition
-    (40) condition -> . column > value
-    (41) condition -> . column < value
-    (42) condition -> . column = value
-    (43) condition -> . column > column
-    (44) condition -> . column < column
-    (45) condition -> . column = column
+    (41) condition -> . column > value
+    (42) condition -> . column < value
+    (43) condition -> . column = value
+    (44) condition -> . column > column
+    (45) condition -> . column < column
+    (46) condition -> . column = column
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
@@ -1169,39 +1192,39 @@ state 77
     *               shift and go to state 14
     NAME            shift and go to state 15
 
-    condition                      shift and go to state 89
-    column                         shift and go to state 79
+    condition                      shift and go to state 90
+    column                         shift and go to state 80
 
-state 78
+state 79
 
     (35) conlist -> NAME . BETWEEN number AND number
     (36) conlist -> NAME . IN LPAR select RPAR
     (20) column -> NAME .
     (21) column -> NAME . DOT NAME
 
-    BETWEEN         shift and go to state 90
-    IN              shift and go to state 91
+    BETWEEN         shift and go to state 91
+    IN              shift and go to state 92
     >               reduce using rule 20 (column -> NAME .)
     <               reduce using rule 20 (column -> NAME .)
     =               reduce using rule 20 (column -> NAME .)
-    DOT             shift and go to state 37
-
-
-state 79
-
-    (40) condition -> column . > value
-    (41) condition -> column . < value
-    (42) condition -> column . = value
-    (43) condition -> column . > column
-    (44) condition -> column . < column
-    (45) condition -> column . = column
-
-    >               shift and go to state 92
-    <               shift and go to state 93
-    =               shift and go to state 94
+    DOT             shift and go to state 38
 
 
 state 80
+
+    (41) condition -> column . > value
+    (42) condition -> column . < value
+    (43) condition -> column . = value
+    (44) condition -> column . > column
+    (45) condition -> column . < column
+    (46) condition -> column . = column
+
+    >               shift and go to state 93
+    <               shift and go to state 94
+    =               shift and go to state 95
+
+
+state 81
 
     (28) tables -> tables COMMA table .
 
@@ -1212,17 +1235,17 @@ state 80
     RPAR            reduce using rule 28 (tables -> tables COMMA table .)
 
 
-state 81
+state 82
 
     (11) select -> SELECT columns FROM tables WHERE conlist . ORDER BY columns
     (12) select -> SELECT columns FROM tables WHERE conlist .
 
-    ORDER           shift and go to state 95
+    ORDER           shift and go to state 96
     $end            reduce using rule 12 (select -> SELECT columns FROM tables WHERE conlist .)
     RPAR            reduce using rule 12 (select -> SELECT columns FROM tables WHERE conlist .)
 
 
-state 82
+state 83
 
     (13) select -> SELECT columns FROM tables ORDER BY . columns
     (17) columns -> . columns COMMA column
@@ -1234,78 +1257,59 @@ state 82
     *               shift and go to state 14
     NAME            shift and go to state 15
 
-    columns                        shift and go to state 96
+    columns                        shift and go to state 97
     column                         shift and go to state 12
-
-state 83
-
-    (5) update -> UPDATE table SET column = expression .
-    (6) update -> UPDATE table SET column = expression . WHERE conlist
-    (52) expression -> expression . + value
-    (53) expression -> expression . - value
-
-    $end            reduce using rule 5 (update -> UPDATE table SET column = expression .)
-    WHERE           shift and go to state 97
-    +               shift and go to state 35
-    -               shift and go to state 36
-
 
 state 84
 
-    (7) insert -> INSERT INTO table VALUES LPAR expressions . RPAR
-    (50) expressions -> expressions . COMMA expression
+    (5) update -> UPDATE table SET column = expression .
+    (6) update -> UPDATE table SET column = expression . WHERE conlist
+    (53) expression -> expression . + value
+    (54) expression -> expression . - value
 
-    RPAR            shift and go to state 98
-    COMMA           shift and go to state 99
+    $end            reduce using rule 5 (update -> UPDATE table SET column = expression .)
+    WHERE           shift and go to state 98
+    +               shift and go to state 36
+    -               shift and go to state 37
 
 
 state 85
 
-    (51) expressions -> expression .
-    (52) expression -> expression . + value
-    (53) expression -> expression . - value
+    (7) insert -> INSERT INTO table VALUES LPAR expressions . RPAR
+    (51) expressions -> expressions . COMMA expression
 
-    RPAR            reduce using rule 51 (expressions -> expression .)
-    COMMA           reduce using rule 51 (expressions -> expression .)
-    +               shift and go to state 35
-    -               shift and go to state 36
+    RPAR            shift and go to state 99
+    COMMA           shift and go to state 100
 
 
 state 86
 
-    (8) insert -> INSERT INTO table LPAR columns RPAR . VALUES LPAR expressions RPAR
+    (52) expressions -> expression .
+    (53) expression -> expression . + value
+    (54) expression -> expression . - value
 
-    VALUES          shift and go to state 100
+    RPAR            reduce using rule 52 (expressions -> expression .)
+    COMMA           reduce using rule 52 (expressions -> expression .)
+    +               shift and go to state 36
+    -               shift and go to state 37
 
 
 state 87
 
-    (33) conlist -> condition AND . condition
-    (40) condition -> . column > value
-    (41) condition -> . column < value
-    (42) condition -> . column = value
-    (43) condition -> . column > column
-    (44) condition -> . column < column
-    (45) condition -> . column = column
-    (19) column -> . *
-    (20) column -> . NAME
-    (21) column -> . NAME DOT NAME
+    (8) insert -> INSERT INTO table LPAR columns RPAR . VALUES LPAR expressions RPAR
 
-    *               shift and go to state 14
-    NAME            shift and go to state 15
+    VALUES          shift and go to state 101
 
-    condition                      shift and go to state 101
-    column                         shift and go to state 79
 
 state 88
 
-    (34) conlist -> condition OR . condition
-    (40) condition -> . column > value
-    (41) condition -> . column < value
-    (42) condition -> . column = value
-    (43) condition -> . column > column
-    (44) condition -> . column < column
-    (45) condition -> . column = column
+    (33) conlist -> condition AND . condition
+    (41) condition -> . column > value
+    (42) condition -> . column < value
+    (43) condition -> . column = value
+    (44) condition -> . column > column
+    (45) condition -> . column < column
+    (46) condition -> . column = column
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
@@ -1314,9 +1318,28 @@ state 88
     NAME            shift and go to state 15
 
     condition                      shift and go to state 102
-    column                         shift and go to state 79
+    column                         shift and go to state 80
 
 state 89
+
+    (34) conlist -> condition OR . condition
+    (41) condition -> . column > value
+    (42) condition -> . column < value
+    (43) condition -> . column = value
+    (44) condition -> . column > column
+    (45) condition -> . column < column
+    (46) condition -> . column = column
+    (19) column -> . *
+    (20) column -> . NAME
+    (21) column -> . NAME DOT NAME
+
+    *               shift and go to state 14
+    NAME            shift and go to state 15
+
+    condition                      shift and go to state 103
+    column                         shift and go to state 80
+
+state 90
 
     (32) conlist -> NOT condition .
 
@@ -1325,160 +1348,166 @@ state 89
     RPAR            reduce using rule 32 (conlist -> NOT condition .)
 
 
-state 90
-
-    (35) conlist -> NAME BETWEEN . number AND number
-    (46) number -> . int
-    (47) number -> . double
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
-
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
-
-    number                         shift and go to state 103
-    int                            shift and go to state 19
-    double                         shift and go to state 20
-
 state 91
 
-    (36) conlist -> NAME IN . LPAR select RPAR
+    (35) conlist -> NAME BETWEEN . number AND number
+    (47) number -> . int
+    (48) number -> . double
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    LPAR            shift and go to state 104
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
+    number                         shift and go to state 104
+    int                            shift and go to state 19
+    double                         shift and go to state 20
 
 state 92
 
-    (40) condition -> column > . value
-    (43) condition -> column > . column
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (19) column -> . *
-    (20) column -> . NAME
-    (21) column -> . NAME DOT NAME
-    (46) number -> . int
-    (47) number -> . double
-    (22) aggregate -> . SUM LPAR TEXT RPAR
-    (23) aggregate -> . AVG LPAR TEXT RPAR
-    (24) aggregate -> . MAX LPAR TEXT RPAR
-    (25) aggregate -> . MIN LPAR TEXT RPAR
-    (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (36) conlist -> NAME IN . LPAR select RPAR
 
-    TEXT            shift and go to state 18
-    *               shift and go to state 14
-    NAME            shift and go to state 15
-    SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    LPAR            shift and go to state 105
 
-    column                         shift and go to state 105
-    value                          shift and go to state 106
-    number                         shift and go to state 16
-    aggregate                      shift and go to state 17
-    int                            shift and go to state 19
-    double                         shift and go to state 20
 
 state 93
 
-    (41) condition -> column < . value
-    (44) condition -> column < . column
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
+    (41) condition -> column > . value
+    (44) condition -> column > . column
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
-    (46) number -> . int
-    (47) number -> . double
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    TEXT            shift and go to state 18
     *               shift and go to state 14
     NAME            shift and go to state 15
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
-    column                         shift and go to state 107
-    value                          shift and go to state 108
+    column                         shift and go to state 106
+    value                          shift and go to state 107
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
 state 94
 
-    (42) condition -> column = . value
-    (45) condition -> column = . column
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
+    (42) condition -> column < . value
+    (45) condition -> column < . column
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
-    (46) number -> . int
-    (47) number -> . double
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    TEXT            shift and go to state 18
     *               shift and go to state 14
     NAME            shift and go to state 15
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
-    column                         shift and go to state 109
-    value                          shift and go to state 110
+    column                         shift and go to state 108
+    value                          shift and go to state 109
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
 state 95
 
-    (11) select -> SELECT columns FROM tables WHERE conlist ORDER . BY columns
+    (43) condition -> column = . value
+    (46) condition -> column = . column
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (19) column -> . *
+    (20) column -> . NAME
+    (21) column -> . NAME DOT NAME
+    (47) number -> . int
+    (48) number -> . double
+    (22) aggregate -> . SUM LPAR TEXT RPAR
+    (23) aggregate -> . AVG LPAR TEXT RPAR
+    (24) aggregate -> . MAX LPAR TEXT RPAR
+    (25) aggregate -> . MIN LPAR TEXT RPAR
+    (26) aggregate -> . COUNT LPAR TEXT RPAR
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    BY              shift and go to state 111
+    *               shift and go to state 14
+    NAME            shift and go to state 15
+    SUM             shift and go to state 21
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
+    column                         shift and go to state 110
+    value                          shift and go to state 111
+    number                         shift and go to state 16
+    aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
+    int                            shift and go to state 19
+    double                         shift and go to state 20
 
 state 96
+
+    (11) select -> SELECT columns FROM tables WHERE conlist ORDER . BY columns
+
+    BY              shift and go to state 112
+
+
+state 97
 
     (13) select -> SELECT columns FROM tables ORDER BY columns .
     (17) columns -> columns . COMMA column
 
     $end            reduce using rule 13 (select -> SELECT columns FROM tables ORDER BY columns .)
     RPAR            reduce using rule 13 (select -> SELECT columns FROM tables ORDER BY columns .)
-    COMMA           shift and go to state 33
+    COMMA           shift and go to state 34
 
 
-state 97
+state 98
 
     (6) update -> UPDATE table SET column = expression WHERE . conlist
     (31) conlist -> . condition
@@ -1487,74 +1516,76 @@ state 97
     (34) conlist -> . condition OR condition
     (35) conlist -> . NAME BETWEEN number AND number
     (36) conlist -> . NAME IN LPAR select RPAR
-    (40) condition -> . column > value
-    (41) condition -> . column < value
-    (42) condition -> . column = value
-    (43) condition -> . column > column
-    (44) condition -> . column < column
-    (45) condition -> . column = column
+    (41) condition -> . column > value
+    (42) condition -> . column < value
+    (43) condition -> . column = value
+    (44) condition -> . column > column
+    (45) condition -> . column < column
+    (46) condition -> . column = column
     (19) column -> . *
     (20) column -> . NAME
     (21) column -> . NAME DOT NAME
 
-    NOT             shift and go to state 77
-    NAME            shift and go to state 78
+    NOT             shift and go to state 78
+    NAME            shift and go to state 79
     *               shift and go to state 14
 
-    column                         shift and go to state 79
-    conlist                        shift and go to state 112
-    condition                      shift and go to state 76
+    column                         shift and go to state 80
+    conlist                        shift and go to state 113
+    condition                      shift and go to state 77
 
-state 98
+state 99
 
     (7) insert -> INSERT INTO table VALUES LPAR expressions RPAR .
 
     $end            reduce using rule 7 (insert -> INSERT INTO table VALUES LPAR expressions RPAR .)
 
 
-state 99
+state 100
 
-    (50) expressions -> expressions COMMA . expression
-    (52) expression -> . expression + value
-    (53) expression -> . expression - value
-    (54) expression -> . value
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
+    (51) expressions -> expressions COMMA . expression
+    (53) expression -> . expression + value
+    (54) expression -> . expression - value
+    (55) expression -> . value
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    TEXT            shift and go to state 18
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
-    expression                     shift and go to state 113
+    expression                     shift and go to state 114
     value                          shift and go to state 13
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
-state 100
+state 101
 
     (8) insert -> INSERT INTO table LPAR columns RPAR VALUES . LPAR expressions RPAR
 
-    LPAR            shift and go to state 114
+    LPAR            shift and go to state 115
 
 
-state 101
+state 102
 
     (33) conlist -> condition AND condition .
 
@@ -1563,7 +1594,7 @@ state 101
     RPAR            reduce using rule 33 (conlist -> condition AND condition .)
 
 
-state 102
+state 103
 
     (34) conlist -> condition OR condition .
 
@@ -1572,14 +1603,14 @@ state 102
     RPAR            reduce using rule 34 (conlist -> condition OR condition .)
 
 
-state 103
+state 104
 
     (35) conlist -> NAME BETWEEN number . AND number
 
-    AND             shift and go to state 115
+    AND             shift and go to state 116
 
 
-state 104
+state 105
 
     (36) conlist -> NAME IN LPAR . select RPAR
     (11) select -> . SELECT columns FROM tables WHERE conlist ORDER BY columns
@@ -1591,75 +1622,75 @@ state 104
 
     SELECT          shift and go to state 6
 
-    select                         shift and go to state 116
-
-state 105
-
-    (43) condition -> column > column .
-
-    AND             reduce using rule 43 (condition -> column > column .)
-    OR              reduce using rule 43 (condition -> column > column .)
-    $end            reduce using rule 43 (condition -> column > column .)
-    ORDER           reduce using rule 43 (condition -> column > column .)
-    RPAR            reduce using rule 43 (condition -> column > column .)
-
+    select                         shift and go to state 117
 
 state 106
 
-    (40) condition -> column > value .
+    (44) condition -> column > column .
 
-    AND             reduce using rule 40 (condition -> column > value .)
-    OR              reduce using rule 40 (condition -> column > value .)
-    $end            reduce using rule 40 (condition -> column > value .)
-    ORDER           reduce using rule 40 (condition -> column > value .)
-    RPAR            reduce using rule 40 (condition -> column > value .)
+    AND             reduce using rule 44 (condition -> column > column .)
+    OR              reduce using rule 44 (condition -> column > column .)
+    $end            reduce using rule 44 (condition -> column > column .)
+    ORDER           reduce using rule 44 (condition -> column > column .)
+    RPAR            reduce using rule 44 (condition -> column > column .)
 
 
 state 107
 
-    (44) condition -> column < column .
+    (41) condition -> column > value .
 
-    AND             reduce using rule 44 (condition -> column < column .)
-    OR              reduce using rule 44 (condition -> column < column .)
-    $end            reduce using rule 44 (condition -> column < column .)
-    ORDER           reduce using rule 44 (condition -> column < column .)
-    RPAR            reduce using rule 44 (condition -> column < column .)
+    AND             reduce using rule 41 (condition -> column > value .)
+    OR              reduce using rule 41 (condition -> column > value .)
+    $end            reduce using rule 41 (condition -> column > value .)
+    ORDER           reduce using rule 41 (condition -> column > value .)
+    RPAR            reduce using rule 41 (condition -> column > value .)
 
 
 state 108
 
-    (41) condition -> column < value .
+    (45) condition -> column < column .
 
-    AND             reduce using rule 41 (condition -> column < value .)
-    OR              reduce using rule 41 (condition -> column < value .)
-    $end            reduce using rule 41 (condition -> column < value .)
-    ORDER           reduce using rule 41 (condition -> column < value .)
-    RPAR            reduce using rule 41 (condition -> column < value .)
+    AND             reduce using rule 45 (condition -> column < column .)
+    OR              reduce using rule 45 (condition -> column < column .)
+    $end            reduce using rule 45 (condition -> column < column .)
+    ORDER           reduce using rule 45 (condition -> column < column .)
+    RPAR            reduce using rule 45 (condition -> column < column .)
 
 
 state 109
 
-    (45) condition -> column = column .
+    (42) condition -> column < value .
 
-    AND             reduce using rule 45 (condition -> column = column .)
-    OR              reduce using rule 45 (condition -> column = column .)
-    $end            reduce using rule 45 (condition -> column = column .)
-    ORDER           reduce using rule 45 (condition -> column = column .)
-    RPAR            reduce using rule 45 (condition -> column = column .)
+    AND             reduce using rule 42 (condition -> column < value .)
+    OR              reduce using rule 42 (condition -> column < value .)
+    $end            reduce using rule 42 (condition -> column < value .)
+    ORDER           reduce using rule 42 (condition -> column < value .)
+    RPAR            reduce using rule 42 (condition -> column < value .)
 
 
 state 110
 
-    (42) condition -> column = value .
+    (46) condition -> column = column .
 
-    AND             reduce using rule 42 (condition -> column = value .)
-    OR              reduce using rule 42 (condition -> column = value .)
-    $end            reduce using rule 42 (condition -> column = value .)
-    ORDER           reduce using rule 42 (condition -> column = value .)
-    RPAR            reduce using rule 42 (condition -> column = value .)
+    AND             reduce using rule 46 (condition -> column = column .)
+    OR              reduce using rule 46 (condition -> column = column .)
+    $end            reduce using rule 46 (condition -> column = column .)
+    ORDER           reduce using rule 46 (condition -> column = column .)
+    RPAR            reduce using rule 46 (condition -> column = column .)
 
 
 state 111
+
+    (43) condition -> column = value .
+
+    AND             reduce using rule 43 (condition -> column = value .)
+    OR              reduce using rule 43 (condition -> column = value .)
+    $end            reduce using rule 43 (condition -> column = value .)
+    ORDER           reduce using rule 43 (condition -> column = value .)
+    RPAR            reduce using rule 43 (condition -> column = value .)
+
+
+state 112
 
     (11) select -> SELECT columns FROM tables WHERE conlist ORDER BY . columns
     (17) columns -> . columns COMMA column
@@ -1671,108 +1702,110 @@ state 111
     *               shift and go to state 14
     NAME            shift and go to state 15
 
-    columns                        shift and go to state 117
+    columns                        shift and go to state 118
     column                         shift and go to state 12
 
-state 112
+state 113
 
     (6) update -> UPDATE table SET column = expression WHERE conlist .
 
     $end            reduce using rule 6 (update -> UPDATE table SET column = expression WHERE conlist .)
 
 
-state 113
-
-    (50) expressions -> expressions COMMA expression .
-    (52) expression -> expression . + value
-    (53) expression -> expression . - value
-
-    RPAR            reduce using rule 50 (expressions -> expressions COMMA expression .)
-    COMMA           reduce using rule 50 (expressions -> expressions COMMA expression .)
-    +               shift and go to state 35
-    -               shift and go to state 36
-
-
 state 114
 
+    (51) expressions -> expressions COMMA expression .
+    (53) expression -> expression . + value
+    (54) expression -> expression . - value
+
+    RPAR            reduce using rule 51 (expressions -> expressions COMMA expression .)
+    COMMA           reduce using rule 51 (expressions -> expressions COMMA expression .)
+    +               shift and go to state 36
+    -               shift and go to state 37
+
+
+state 115
+
     (8) insert -> INSERT INTO table LPAR columns RPAR VALUES LPAR . expressions RPAR
-    (50) expressions -> . expressions COMMA expression
-    (51) expressions -> . expression
-    (52) expression -> . expression + value
-    (53) expression -> . expression - value
-    (54) expression -> . value
-    (37) value -> . number
-    (38) value -> . aggregate
-    (39) value -> . TEXT
-    (46) number -> . int
-    (47) number -> . double
+    (51) expressions -> . expressions COMMA expression
+    (52) expressions -> . expression
+    (53) expression -> . expression + value
+    (54) expression -> . expression - value
+    (55) expression -> . value
+    (38) value -> . number
+    (39) value -> . aggregate
+    (40) value -> . texts
+    (47) number -> . int
+    (48) number -> . double
     (22) aggregate -> . SUM LPAR TEXT RPAR
     (23) aggregate -> . AVG LPAR TEXT RPAR
     (24) aggregate -> . MAX LPAR TEXT RPAR
     (25) aggregate -> . MIN LPAR TEXT RPAR
     (26) aggregate -> . COUNT LPAR TEXT RPAR
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
+    (37) texts -> . TEXT
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    TEXT            shift and go to state 18
     SUM             shift and go to state 21
-    AVG             shift and go to state 22
-    MAX             shift and go to state 23
-    MIN             shift and go to state 24
-    COUNT           shift and go to state 25
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
+    AVG             shift and go to state 23
+    MAX             shift and go to state 24
+    MIN             shift and go to state 25
+    COUNT           shift and go to state 26
+    TEXT            shift and go to state 22
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
-    expressions                    shift and go to state 118
-    expression                     shift and go to state 85
+    expressions                    shift and go to state 119
+    expression                     shift and go to state 86
     value                          shift and go to state 13
     number                         shift and go to state 16
     aggregate                      shift and go to state 17
-    int                            shift and go to state 19
-    double                         shift and go to state 20
-
-state 115
-
-    (35) conlist -> NAME BETWEEN number AND . number
-    (46) number -> . int
-    (47) number -> . double
-    (48) int -> . INTEGER
-    (49) double -> . DOUBLE
-
-    INTEGER         shift and go to state 26
-    DOUBLE          shift and go to state 27
-
-    number                         shift and go to state 119
+    texts                          shift and go to state 18
     int                            shift and go to state 19
     double                         shift and go to state 20
 
 state 116
 
-    (36) conlist -> NAME IN LPAR select . RPAR
+    (35) conlist -> NAME BETWEEN number AND . number
+    (47) number -> . int
+    (48) number -> . double
+    (49) int -> . INTEGER
+    (50) double -> . DOUBLE
 
-    RPAR            shift and go to state 120
+    INTEGER         shift and go to state 27
+    DOUBLE          shift and go to state 28
 
+    number                         shift and go to state 120
+    int                            shift and go to state 19
+    double                         shift and go to state 20
 
 state 117
+
+    (36) conlist -> NAME IN LPAR select . RPAR
+
+    RPAR            shift and go to state 121
+
+
+state 118
 
     (11) select -> SELECT columns FROM tables WHERE conlist ORDER BY columns .
     (17) columns -> columns . COMMA column
 
     $end            reduce using rule 11 (select -> SELECT columns FROM tables WHERE conlist ORDER BY columns .)
     RPAR            reduce using rule 11 (select -> SELECT columns FROM tables WHERE conlist ORDER BY columns .)
-    COMMA           shift and go to state 33
-
-
-state 118
-
-    (8) insert -> INSERT INTO table LPAR columns RPAR VALUES LPAR expressions . RPAR
-    (50) expressions -> expressions . COMMA expression
-
-    RPAR            shift and go to state 121
-    COMMA           shift and go to state 99
+    COMMA           shift and go to state 34
 
 
 state 119
+
+    (8) insert -> INSERT INTO table LPAR columns RPAR VALUES LPAR expressions . RPAR
+    (51) expressions -> expressions . COMMA expression
+
+    RPAR            shift and go to state 122
+    COMMA           shift and go to state 100
+
+
+state 120
 
     (35) conlist -> NAME BETWEEN number AND number .
 
@@ -1781,7 +1814,7 @@ state 119
     RPAR            reduce using rule 35 (conlist -> NAME BETWEEN number AND number .)
 
 
-state 120
+state 121
 
     (36) conlist -> NAME IN LPAR select RPAR .
 
@@ -1790,7 +1823,7 @@ state 120
     RPAR            reduce using rule 36 (conlist -> NAME IN LPAR select RPAR .)
 
 
-state 121
+state 122
 
     (8) insert -> INSERT INTO table LPAR columns RPAR VALUES LPAR expressions RPAR .
 
