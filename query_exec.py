@@ -60,11 +60,18 @@ class Operations(object):
                 df.to_csv("Tables/" + tables, index=False)
 
         elif name == 'insert':
-            df = pd.read_csv("Tables/" + tables)
-            print(list(expressions))
-            df.loc[len(df.index)] = expressions
-            print(df)
-            df.to_csv("Tables/" + tables, index=False)
+            if columns is None:
+                df = pd.read_csv("Tables/" + tables)
+                print(list(expressions))
+                df.loc[len(df.index)] = expressions
+                print(df)
+                df.to_csv("Tables/" + tables, index=False)
+            else:
+                df = pd.read_csv("Tables/" + tables)
+                print(list(expressions))
+                df.loc[len(df.index), columns] = expressions
+                print(df)
+                df.to_csv("Tables/" + tables, index=False)
         elif name == 'delete':
             df = pd.read_csv("Tables/" + tables)
             df.drop()
