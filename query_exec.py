@@ -1,6 +1,5 @@
 import pandas as pd
-
-
+import itertools
 
 class Operations(object):
 
@@ -13,20 +12,42 @@ class Operations(object):
             df = pd.read_csv("Tables/" + tables[0])
             if where is not None:
                 # df = pd.read_csv("Tables/" + tables[0])
+                where = [item for sublist in [[item] if type(item) is not list else item for item in where] for item in sublist]
                 print(where)
                 print(where[2])
-                if where[1] == '=':
-                    df = df[df[where[0]] == where[2]]
-                elif where[1] == '>':
-                    df = df[df[where[0]] > where[2]]
-                elif where[1] == '<':
-                    df = df[df[where[0]] < where[2]]
+
+                i = 0
+                b = ''
+
+                while i < len(where):
+                    if where[i + 1] == '=':
+                        if b == 'OR':
+                            df2 = df[df[where[i]] == where[i + 2]]
+                            df = pd.concat([df2, df]).drop_duplicates()
+                        else:
+                            df = df[df[where[i]] == where[i + 2]]
+                    elif where[i + 1] == '>':
+                        if b == 'OR':
+                            df2 = df[df[where[i]] > where[i + 2]]
+                            df = pd.concat([df2, df]).drop_duplicates()
+                        else:
+                            df = df[df[where[i]] > where[i + 2]]
+                    elif where[i + 1] == '<':
+                        if b == 'OR':
+                            df2 = df[df[where[i]] < where[i + 2]]
+                            df = pd.concat([df2, df]).drop_duplicates()
+                        else:
+                            df = df[df[where[i]] < where[i + 2]]
+
+                    if i + 3 < len(where):
+                        b = where[i + 3]
+
+                    i = i + 4
 
             if expressions is not None:
                 print(expressions)
             elif columns == ['*']:
                 pass
-                #print(df.head())
             else:
                 # df = pd.read_csv("Tables/" + tables[0])
                 # print(columns)
@@ -90,8 +111,14 @@ class Operations(object):
                 print(df.head(5))
                 df.to_csv("Tables/" + tables[0], index=False)
 
-
-
+    # def flatten(self, table):
+    #     rt = []
+    #     for i in table:
+    #         if isinstance(i, list):
+    #             rt.extend(flatten(i))
+    #         else:
+    #             rt.append(i)
+    #     return rt
 
 
 

@@ -353,19 +353,26 @@ def p_table(p):
 
 def p_conlist(p):
     ''' conlist : condition
-                | NOT condition
                 | condition AND condition
                 | condition OR condition
                 | NAME BETWEEN number AND number
                 | NAME IN LPAR select RPAR
                  '''
-    p[0] = p[1]
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 4 or len(p) == 6:
+        cond = []
+        for c in p[1:]:
+            cond.append(c)
+        p[0] = cond
+
 
 def p_texts(p):
     '''texts : TEXT
                '''
 
     p[0] = p[1][1:-1]
+
 
 def p_value(p):
     ''' value :  number
