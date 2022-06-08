@@ -186,7 +186,7 @@ def t_NAME(t):
     return t
 
 def t_TEXT(t):
-    r'\'[\w]+\'|\'[\w\s]+\''
+    r'\'[\w-]+\'|\'[\w\s-]+\''
     return t
 
 

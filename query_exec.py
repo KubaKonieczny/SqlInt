@@ -39,7 +39,7 @@ class Operations(object):
             print(df)
 
         elif name == 'update':
-            df = pd.read_csv("Tables/" + tables[0])
+            df = pd.read_csv("Tables/" + tables)
             print(expressions)
             if where is None:
                 df.loc[:, columns] = expressions[0]
@@ -73,9 +73,9 @@ class Operations(object):
                 print(df)
                 df.to_csv("Tables/" + tables, index=False)
         elif name == 'delete':
-            df = pd.read_csv("Tables/" + tables)
-            df.drop()
-
+            df = pd.read_csv("Tables/" + tables[0])
+            df.drop(df.index, inplace=True)
+            df.to_csv("Tables/" + tables[0], index=False)
 
 
 
