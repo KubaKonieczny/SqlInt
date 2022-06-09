@@ -81,6 +81,7 @@ class Operations(object):
                 print(where)
                 i = 0
                 b = ''
+                df2 = df
 
                 while i < len(where):
                     if where[i + 1] == '=':
@@ -88,7 +89,6 @@ class Operations(object):
                             df2 = df
                             df2.loc[df[where[i]] == where[i + 2], columns] = expressions
                         else:
-                            df = df[df[where[i]] == where[i + 2]]
                             df.loc[df[where[i]] == where[i + 2], columns] = expressions
 
                     elif where[i + 1] == '>':
@@ -97,6 +97,7 @@ class Operations(object):
                             df2.loc[df[where[i]] > where[i + 2], columns] = expressions
                         else:
                             df.loc[df[where[i]] > where[i + 2], columns] = expressions
+
                     elif where[i + 1] == '<':
                         if b == 'OR':
                             df2 = df
@@ -125,6 +126,7 @@ class Operations(object):
                 df.loc[len(df.index), columns] = expressions
                 print(df)
                 df.to_csv("Tables/" + tables, index=False)
+
         elif name == 'delete':
 
             if where is None:
