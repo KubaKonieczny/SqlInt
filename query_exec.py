@@ -77,13 +77,44 @@ class Operations(object):
                 # df = pd.read_csv("Tables/" + tables[0])
                 #print(where[2])
                 print(where[2])
-                if where[1] == '=':
-                    df.loc[df[where[0]] == where[2], columns] = expressions
-                elif where[1] == '>':
-                    df.loc[df[where[0]] > where[2], columns] = expressions
-                elif where[1] == '<':
-                    df.loc[df[where[0]] < where[2], columns] = expressions
-                print(df.head(5))
+
+                for i in range(len(where)):
+                    where = [item for sublist in [[item] if type(item) is not list else item for item in where] for item
+                             in sublist]
+
+                print(where)
+                i = 0
+                b = ''
+                df2 = df
+
+                while i < len(where):
+                    if where[i + 1] == '=':
+                        if b == 'OR':
+                            df2 = df
+                            df2.loc[df[where[i]] == where[i + 2], columns] = expressions
+                        else:
+                            df.loc[df[where[i]] == where[i + 2], columns] = expressions
+
+                    elif where[i + 1] == '>':
+                        if b == 'OR':
+                            df2 = df
+                            df2.loc[df[where[i]] > where[i + 2], columns] = expressions
+                        else:
+                            df.loc[df[where[i]] > where[i + 2], columns] = expressions
+
+                    elif where[i + 1] == '<':
+                        if b == 'OR':
+                            df2 = df
+                            df2.loc[df[where[i]] < where[i + 2], columns] = expressions
+                        else:
+                            df.loc[df[where[i]] > where[i + 2], columns] = expressions
+
+                    if i + 3 < len(where):
+                        b = where[i + 3]
+
+                    i = i + 4
+
+                df = pd.concat([df2, df]).drop_duplicates()
                 df.to_csv("Tables/" + tables, index=False)
 
         elif name == 'insert':
@@ -99,6 +130,7 @@ class Operations(object):
                 df.loc[len(df.index), columns] = expressions
                 print(df)
                 df.to_csv("Tables/" + tables, index=False)
+
         elif name == 'delete':
 
             if where is None:
