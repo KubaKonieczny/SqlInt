@@ -231,6 +231,11 @@ while True:
 
 
 # PARSING
+
+precedence = (
+    ('left', '+', '-'),
+    ('left', '*', '/',)
+)
 def p_query(p):
     '''query : select
             | update
@@ -350,11 +355,11 @@ def p_column(p):
 
 
 def p_aggregate(p):
-    ''' aggregate : SUM LPAR TEXT RPAR
-                    | AVG LPAR TEXT RPAR
-                    | MAX LPAR TEXT RPAR
-                    | MIN LPAR TEXT RPAR
-                    | COUNT LPAR TEXT RPAR '''
+    ''' aggregate : SUM LPAR NAME RPAR
+                    | AVG LPAR NAME RPAR
+                    | MAX LPAR NAME RPAR
+                    | MIN LPAR NAME RPAR
+                    | COUNT LPAR NAME RPAR '''
 
 
 def p_tables(p):
@@ -459,6 +464,7 @@ def p_expression(p):
                    | expression '-' expression
                    | expression '*' expression
                    | expression '/' expression
+                   | LPAR expression RPAR
                    | value '''
     if len(p) == 2:
         p[0] = p[1]
@@ -471,7 +477,8 @@ def p_expression(p):
             p[0] = p[1] * p[3]
         elif p[2] == '/':
             p[0] = p[1] / p[3]
-
+        else:
+            p[0] = p[2]
 def p_error(p):
     print("Syntax error in input!")
 
