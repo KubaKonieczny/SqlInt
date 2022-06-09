@@ -26,7 +26,9 @@ reserved = {
     'COUNT': 'COUNT',
     'AS': 'AS',
     'SET': 'SET',
-    'VALUES': 'VALUES'
+    'VALUES': 'VALUES',
+    'DESC': 'DESC',
+    'ASC' : 'ASC'
 
 }
 
@@ -131,7 +133,12 @@ def t_COUNT(t):
     r'[Cc][Oo][Uu][Nn][Tt]'
     return t
 
-
+def t_ASC(t):
+    r'[Aa][Ss][Cc]'
+    return t
+def t_DESC(t):
+    r'[Dd][Ee][Ss][Cc]'
+    return t
 def t_AS(t):
     r'[Aa][Ss]'
     return t
@@ -141,6 +148,13 @@ def t_VALUES(t):
     return t
 
 
+# def t_TEXT(t):
+#     r'\'[[\w]+[\-]+[\w]+]+\'|\'[[\w\s]+[\-]+[\w\s]+]+\''
+#     return t
+
+# def t_TEXT(t):
+#     r'.*'
+#     return t
 
 def t_DOUBLE(t):
     r'\d+\.\d+'
@@ -268,8 +282,10 @@ def p_delete(p):
 
 def p_select(p):
     ''' select : SELECT columns FROM tables WHERE conlist ORDER BY columns
+                | SELECT columns FROM tables WHERE conlist ORDER BY columns order_type
                 | SELECT columns FROM tables WHERE conlist
                 | SELECT columns FROM tables ORDER BY columns
+                | SELECT columns FROM tables ORDER BY columns order_type
                 | SELECT columns FROM tables
                 | SELECT expression
                 | SELECT expression FROM tables'''
@@ -280,13 +296,19 @@ def p_select(p):
     e = None
     w = None
 
-    if len(p) == 10 or len(p) == 7:
+    if len(p) == 11:
+        w = p[6]
+        o = [p[9], p[10]]
+    elif len(p) == 10:
+        w = p[6]
+        o = [p[9], 'asc']
+    elif len(p) == 9:
+        o = [p[7], p[8]]
+    elif len(p) == 8:
+        o = [p[7], ' asc']
+    elif len(p) == 7:
         w = p[6]
 
-    if len(p) == 9:
-        o = p[8]
-    elif len(p) == 7:
-        o = p[6]
 
     if len(p) == 3:
         e = p[2]
@@ -296,6 +318,11 @@ def p_select(p):
 
     op.query_exec("select", c, t, e, o, w)
 
+
+def p_order_type(p):
+    '''order_type : ASC
+                | DESC '''
+    p[0] = p[1].lower()
 
 def p_columns(p):
     ''' columns : columns COMMA column
@@ -428,8 +455,10 @@ def p_expressions(p):
 
 
 def p_expression(p):
-    ''' expression : expression '+' value
-                   | expression '-' value
+    ''' expression : expression '+' expression
+                   | expression '-' expression
+                   | expression '*' expression
+                   | expression '/' expression
                    | value '''
     if len(p) == 2:
         p[0] = p[1]
@@ -438,7 +467,10 @@ def p_expression(p):
             p[0] = p[1] + p[3]
         elif p[2] == '-':
             p[0] = p[1] - p[3]
-
+        elif p[2] == '*':
+            p[0] = p[1] * p[3]
+        elif p[2] == '/':
+            p[0] = p[1] / p[3]
 
 def p_error(p):
     print("Syntax error in input!")

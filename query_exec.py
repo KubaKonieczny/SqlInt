@@ -8,7 +8,7 @@ class Operations(object):
 
     def query_exec(self, name, columns, tables, expressions, order, where):
 
-        if name == "select":
+        if name == "select" and expressions is None:
             df = pd.read_csv("Tables/" + tables[0])
             if where is not None:
                 # df = pd.read_csv("Tables/" + tables[0])
@@ -17,7 +17,7 @@ class Operations(object):
                     where = [item for sublist in [[item] if type(item) is not list else item for item in where] for item
                              in sublist]
 
-                print(where)
+                #print(where)
                 i = 0
                 b = ''
 
@@ -45,10 +45,13 @@ class Operations(object):
                         b = where[i + 3]
 
                     i = i + 4
+            if order is not None:
+                if order[1] == 'asc':
+                    df = df.sort_values(order[0])
+                else:
+                    df = df.sort_values(order[0], ascending=False)
 
-            if expressions is not None:
-                print(expressions)
-            elif columns == ['*']:
+            if columns == ['*']:
                 pass
             else:
                 # df = pd.read_csv("Tables/" + tables[0])
@@ -60,7 +63,8 @@ class Operations(object):
                 #print(df.head())
 
             print(df)
-
+        elif name == "select" and expressions is not None:
+            print(expressions)
         elif name == 'update':
             df = pd.read_csv("Tables/" + tables)
             print(expressions)
@@ -84,7 +88,7 @@ class Operations(object):
 
         elif name == 'insert':
             if columns is None:
-                df = pd.read_csv("Tables/" + tables)
+                df = pd.read_csv("Tables/" + tables[0])
                 print(list(expressions))
                 df.loc[len(df.index)] = expressions
                 print(df)
