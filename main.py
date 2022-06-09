@@ -310,7 +310,7 @@ def p_select(p):
     elif len(p) == 9:
         o = [p[7], p[8]]
     elif len(p) == 8:
-        o = [p[7], ' asc']
+        o = [p[7], 'asc']
     elif len(p) == 7:
         w = p[6]
 
