@@ -67,22 +67,22 @@ class Operations(object):
             print(expressions)
         elif name == 'update':
             df = pd.read_csv("Tables/" + tables)
-            print(expressions)
+            #print(expressions)
             if where is None:
                 df.loc[:, columns] = expressions[0]
-                print(df.head(5))
-                df.to_csv("Tables/" + tables, index_col=False)
+                print(df)
+                df.to_csv("Tables/" + tables, index=False)
 
             if where is not None:
                 # df = pd.read_csv("Tables/" + tables[0])
                 #print(where[2])
-                print(where[2])
+                #print(where[2])
 
                 for i in range(len(where)):
                     where = [item for sublist in [[item] if type(item) is not list else item for item in where] for item
                              in sublist]
 
-                print(where)
+                #print(where)
                 i = 0
                 b = ''
                 df2 = df
@@ -115,18 +115,19 @@ class Operations(object):
                     i = i + 4
 
                 df = pd.concat([df2, df]).drop_duplicates()
+                print(df)
                 df.to_csv("Tables/" + tables, index=False)
 
         elif name == 'insert':
             if columns is None:
-                df = pd.read_csv("Tables/" + tables[0])
-                print(list(expressions))
+                df = pd.read_csv("Tables/" + tables)
+                #print(list(expressions))
                 df.loc[len(df.index)] = expressions
                 print(df)
                 df.to_csv("Tables/" + tables, index=False)
             else:
                 df = pd.read_csv("Tables/" + tables)
-                print(list(expressions))
+                #print(list(expressions))
                 df.loc[len(df.index), columns] = expressions
                 print(df)
                 df.to_csv("Tables/" + tables, index=False)
@@ -146,7 +147,7 @@ class Operations(object):
                     df.drop(df[df[where[0]] > where[2]].index, inplace=True)
                 elif where[1] == '<':
                     df.drop(df[df[where[0]] < where[2]].index, inplace=True)
-                print(df.head(5))
+                print(df)
                 df.to_csv("Tables/" + tables[0], index=False)
 
     # def flatten(self, table):

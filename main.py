@@ -214,7 +214,7 @@ def t_error(t):
 
 
 # Build the lexer
-lexer = lex.lex(debug=1)
+lexer = lex.lex()
 
 lexer.lexliterals
 
@@ -227,7 +227,7 @@ while True:
     tok = lexer.token()
     if not tok:
         break  # No more input
-    print(tok)
+    #print(tok)
 
 
 # PARSING
@@ -487,17 +487,27 @@ def p_error(p):
 
 parser = yacc.yacc(debug=1)
 
-print(parser)
+#print(parser)
 # parser.parse(data, debug=1)
 # for x in parser.token()
 # print(parser.token())
 while True:
     try:
-        s = input("Enter query \n")
+        s = input("Enter query or type 'help' or quit\n")
     except EOFError:
         break
     if not s:
         continue
-    result = parser.parse(s, debug=1)
+    if s == 'q' or s == 'quit' :
+        break
+    elif s=='help' or s == '?':
+        print('''
+        SELECT kolumny FROM tabela [WHERE warunki] [ORDER BY kolumny [ASC|DESC]]
+        SELECT wyrażenia_matematyczne
+        UPDATE tabela SET kolumna = wartość [WHERE warunki]
+        INSERT INTO tabela [(kolumny)] VALUES (kolumny)
+        DELETE FROM table [WHERE warunek]''')
+    else:
+        result = parser.parse(s)
 
-    print(result)
+        print(result)
