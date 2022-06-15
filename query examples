@@ -14,3 +14,4 @@ DELETE FROM students_test WHERE age > 30
 
 SELECT FROM table
 SELECT kolumna FROM &%
+DELETE FROM students_test WHERE > 30

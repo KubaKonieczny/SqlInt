@@ -480,8 +480,11 @@ def p_expression(p):
         else:
             p[0] = p[2]
 def p_error(p):
-    print("Syntax error in input!")
+    if p:
+        print("Syntax error near: ",  p.value)
 
+    else:
+        print("Syntax error at end of query")
     # Build the parser
 
 
